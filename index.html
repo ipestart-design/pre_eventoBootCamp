@@ -17,7 +17,7 @@
         .event-header h1 { font-size: 13px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin: 15px 0 5px 0; font-weight: 800; }
         .event-header p { font-size: 17px; margin: 0; font-weight: 400; opacity: 0.9; }
 
-        .progress-bar { height: 4px; width: 12.5%; background: var(--amarelo); margin-bottom: 30px; transition: 0.4s; box-shadow: 0 0 10px var(--amarelo); border-radius: 2px; }
+        .progress-bar { height: 4px; width: 14%; background: var(--amarelo); margin-bottom: 30px; transition: 0.4s; box-shadow: 0 0 10px var(--amarelo); border-radius: 2px; }
         
         .card { 
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -26,7 +26,7 @@
         }
         .card.active { display: flex; animation: fadeIn 0.4s ease; }
 
-        h2 { font-size: 16px; margin-bottom: 25px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.4; }
+        h2 { font-size: 15px; margin-bottom: 25px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.4; }
         
         input, textarea, select { 
             width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); 
@@ -71,13 +71,6 @@
         </div>
 
         <div class="card" id="s2">
-            <h2>ORIGEM</h2>
-            <input type="text" id="instituicao" placeholder="Instituição / Unidade">
-            <input type="text" id="cidade" placeholder="Cidade / UF">
-            <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">PRÓXIMO</button></div>
-        </div>
-
-        <div class="card" id="s3">
             <h2>QUAL SEU PERFIL?</h2>
             <div class="opt-stack">
                 <div class="opt g" onclick="sel('g',this,'Docente','perfil')">Docente ligado a projeto</div>
@@ -85,11 +78,11 @@
                 <div class="opt g" onclick="sel('g',this,'Empresa Júnior','perfil')">Empresa Júnior</div>
                 <div class="opt g" onclick="sel('g',this,'Outro','perfil')">Outro</div>
             </div>
-            <input type="text" id="p_outro" placeholder="Especifique..." style="display:none;">
-            <div class="btns"><button class="back" onclick="back(3)">Voltar</button><button class="next" onclick="next(3)">PRÓXIMO</button></div>
+            <input type="text" id="p_outro" placeholder="Especifique seu perfil..." style="display:none;">
+            <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">PRÓXIMO</button></div>
         </div>
 
-        <div class="card" id="s4">
+        <div class="card" id="s3">
             <h2>QUAL SEU NÍVEL DE EXPERIÊNCIA?</h2>
             <div class="opt-stack">
                 <div class="opt e" onclick="sel('e',this,'Já liderei','xp')">Já liderei (coordenei) projeto</div>
@@ -97,10 +90,10 @@
                 <div class="opt e" onclick="sel('e',this,'Interesse','xp')">Ainda não participei, mas quero entrar</div>
                 <div class="opt e" onclick="sel('e',this,'Não foca','xp')">Não é meu foco agora</div>
             </div>
-            <div class="btns"><button class="back" onclick="back(4)">Voltar</button><button class="next" onclick="next(4)">PRÓXIMO</button></div>
+            <div class="btns"><button class="back" onclick="back(3)">Voltar</button><button class="next" onclick="next(3)">PRÓXIMO</button></div>
         </div>
 
-        <div class="card" id="s5">
+        <div class="card" id="s4">
             <h2>EM QUE ESTÁGIO ESTÁ SUA INICIATIVA HOJE?</h2>
             <div class="opt-stack">
                 <div class="opt t" onclick="sel('t',this,'Ideação','estagio')">Ideação</div>
@@ -109,16 +102,16 @@
                 <div class="opt t" onclick="sel('t',this,'Escala','estagio')">Escala</div>
                 <div class="opt t" onclick="sel('t',this,'Não sei','estagio')">Não sei qual estágio estou</div>
             </div>
+            <div class="btns"><button class="back" onclick="back(4)">Voltar</button><button class="next" onclick="next(4)">PRÓXIMO</button></div>
+        </div>
+
+        <div class="card" id="s5">
+            <h2>QUAL O SEU PRINCIPAL BLOQUEIO OU DESAFIO PARA AVANÇAR NA INOVAÇÃO?</h2>
+            <textarea id="bloqueio" maxlength="280" placeholder="Sua resposta (até 280 caracteres)..." style="height: 100px; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; color:#fff; background:rgba(255,255,255,0.02); outline:none;"></textarea>
             <div class="btns"><button class="back" onclick="back(5)">Voltar</button><button class="next" onclick="next(5)">PRÓXIMO</button></div>
         </div>
 
         <div class="card" id="s6">
-            <h2>QUAL O SEU PRINCIPAL BLOQUEIO OU DESAFIO PARA AVANÇAR NA INOVAÇÃO?</h2>
-            <textarea id="bloqueio" maxlength="280" placeholder="Sua resposta (até 280 caracteres)..." style="height: 100px; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; color:#fff; background:rgba(255,255,255,0.02); outline:none;"></textarea>
-            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">PRÓXIMO</button></div>
-        </div>
-
-        <div class="card" id="s7">
             <h2>QUE TIPO DE CONEXÃO OU RESULTADO VOCÊ QUER DO PRÉ-EVENTO?</h2>
             <div class="opt-stack">
                 <div class="opt c" onclick="multi(this,'Acadêmica')">Parceria acadêmica</div>
@@ -126,11 +119,13 @@
                 <div class="opt c" onclick="multi(this,'Mentoria')">Mentoria</div>
                 <div class="opt c" onclick="multi(this,'Recursos')">Captação/recursos</div>
                 <div class="opt c" onclick="multi(this,'Networking')">Networking direcionado</div>
+                <div class="opt c" onclick="multi(this,'Outro')">Outro</div>
             </div>
-            <div class="btns"><button class="back" onclick="back(7)">Voltar</button><button class="next" onclick="next(7)">PRÓXIMO</button></div>
+            <input type="text" id="c_outro" placeholder="Especifique o que busca..." style="display:none;">
+            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">PRÓXIMO</button></div>
         </div>
 
-        <div class="card" id="s8">
+        <div class="card" id="s7">
             <h2>FINALIZANDO</h2>
             <p style="font-size: 14px; margin-bottom: 10px; opacity: 0.8;">Sua iniciativa tem intenção de virar produto/serviço para sociedade?*</p>
             <select id="prod">
@@ -147,7 +142,7 @@
             </select>
 
             <div class="btns">
-                <button class="back" onclick="back(8)">Voltar</button>
+                <button class="back" onclick="back(7)">Voltar</button>
                 <button class="next" id="f-btn" onclick="send()">FINALIZAR INSCRIÇÃO</button>
             </div>
         </div>
@@ -179,43 +174,48 @@
             } else if(form.conexoes.length < 2) {
                 b.classList.add('selected'); form.conexoes.push(v);
             }
+            document.getElementById('c_outro').style.display = (form.conexoes.includes('Outro')) ? 'block' : 'none';
         }
 
         function next(s) {
             document.getElementById('s'+s).style.display='none';
             const nxt = document.getElementById('s'+(s+1));
             nxt.style.display='flex'; nxt.classList.add('active');
-            document.getElementById('bar').style.width = ((s+1)/8)*100+'%';
+            document.getElementById('bar').style.width = ((s+1)/7)*100+'%';
         }
 
         function back(s) {
             document.getElementById('s'+s).style.display='none';
             document.getElementById('s'+(s-1)).style.display='flex';
-            document.getElementById('bar').style.width = ((s-1)/8)*100+'%';
+            document.getElementById('bar').style.width = ((s-1)/7)*100+'%';
         }
 
         async function send() {
             const btn = document.getElementById('f-btn'); 
             btn.disabled=true; btn.innerText="SALVANDO...";
 
+            let conexaoFinal = form.conexoes.join(", ");
+            if(form.conexoes.includes('Outro')) {
+                const outroValor = document.getElementById('c_outro').value;
+                conexaoFinal = conexaoFinal.replace('Outro', 'Outro: ' + outroValor);
+            }
+
             const data = {
                 "Nome": document.getElementById('nome').value,
                 "WhatsApp": document.getElementById('whatsapp').value,
                 "Email": document.getElementById('email').value,
-                "Instituicao": document.getElementById('instituicao').value,
-                "Cidade": document.getElementById('cidade').value,
                 "Perfil": form.perfil==='Outro' ? document.getElementById('p_outro').value : form.perfil,
                 "Experiencia": form.xp,
                 "Estagio": form.estagio,
                 "Bloqueio": document.getElementById('bloqueio').value,
-                "Conexoes": form.conexoes.join(", "),
+                "Conexoes": conexaoFinal,
                 "Produto": document.getElementById('prod').value,
                 "Bootcamp": document.getElementById('boot').value
             };
 
             try {
                 await fetch(API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:[data]}) });
-                document.getElementById('s8').style.display='none'; 
+                document.getElementById('s7').style.display='none'; 
                 document.getElementById('sFinal').style.display='flex';
                 document.getElementById('bar').style.width = '100%';
             } catch(e) { alert("Erro ao enviar."); btn.disabled=false; btn.innerText="FINALIZAR"; }
