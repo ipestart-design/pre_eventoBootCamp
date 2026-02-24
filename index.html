@@ -3,254 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscrição | Ecossistema IpêTech</title>
+    <title>Inscrição | IpêTech</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --amarelo: #F2C94C; --roxo: #7B5DFF; --preto: #000000; --branco: #FFFFFF; 
-            --glass-bg: rgba(0, 0, 0, 0.85); --glass-border: rgba(255, 255, 255, 0.15);
-        }
-        
+        :root { --amarelo: #F2C94C; --roxo: #7B5DFF; --branco: #FFFFFF; --glass: rgba(0, 0, 0, 0.8); }
         body { 
-            margin: 0; padding: 0; font-family: 'Manrope', sans-serif; 
-            background-image: url('background.png'); background-size: cover; 
-            background-position: center; background-attachment: fixed;
-            background-color: var(--roxo); color: var(--branco); min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
+            margin: 0; font-family: 'Manrope', sans-serif; background: var(--roxo) url('background.png') no-repeat center center fixed; 
+            background-size: cover; color: var(--branco); display: flex; align-items: center; justify-content: center; min-height: 100vh;
         }
-
-        .global-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: -1; }
-        #container-pre { width: 100%; max-width: 500px; padding: 25px; box-sizing: border-box; }
+        #form-container { width: 100%; max-width: 420px; padding: 20px; box-sizing: border-box; }
+        .progress-bar { height: 4px; width: 12%; background: var(--amarelo); margin-bottom: 30px; transition: 0.4s; box-shadow: 0 0 10px var(--amarelo); }
         
-        .progress-wrap { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 20px; margin-bottom: 35px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 12%; background: var(--amarelo); transition: width 0.7s ease; box-shadow: 0 0 15px var(--amarelo); }
-
-        .step-card { 
-            background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            padding: 40px; border-radius: 35px; border: 1px solid var(--glass-border);
-            display: none; flex-direction: column; box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        .card { 
+            background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 35px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
+            display: none; flex-direction: column;
         }
-        .step-card.active { display: flex; animation: slideIn 0.5s ease-out; }
+        .card.active { display: flex; animation: fadeIn 0.4s ease; }
 
-        h2 { font-size: 20px; font-weight: 800; color: var(--amarelo); margin-bottom: 8px; text-transform: uppercase; line-height: 1.2;}
-        .label-desc { font-size: 13px; opacity: 0.7; margin-bottom: 25px; line-height: 1.4; }
-
-        input, textarea { 
-            width: 100%; padding: 12px 0; border: none; border-bottom: 2px solid rgba(255,255,255,0.2); 
-            font-size: 16px; font-family: 'Manrope'; background: transparent; color: var(--branco); 
-            outline: none; margin-bottom: 20px;
+        h2 { font-size: 18px; margin-bottom: 20px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; }
+        input, textarea, select { 
+            width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.3); 
+            font-size: 16px; background: transparent; color: #fff; outline: none; margin-bottom: 20px;
         }
-        input:focus, textarea:focus { border-bottom-color: var(--amarelo); }
-
-        .option-stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; }
-        .opt-btn { 
-            padding: 12px 15px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 12px; 
-            cursor: pointer; transition: 0.2s; font-size: 13px; font-weight: 500;
+        .opt-stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .opt { 
+            padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; 
+            cursor: pointer; font-size: 14px; transition: 0.3s;
         }
-        .opt-btn:hover { background: rgba(255,255,255,0.05); }
-        .opt-btn.selected { background: var(--amarelo); color: var(--preto); border-color: var(--amarelo); font-weight: 700; }
+        .opt.selected { background: var(--amarelo); color: #000; font-weight: 700; border-color: var(--amarelo); }
 
-        .nav-buttons { display: flex; gap: 12px; margin-top: 10px; }
-        .btn-next { background: var(--amarelo); color: var(--preto); border: none; padding: 16px; border-radius: 14px; font-weight: 800; flex: 2; cursor: pointer; text-transform: uppercase; font-size: 14px;}
-        .btn-back { background: transparent; color: var(--branco); border: 1px solid rgba(255,255,255,0.3); border-radius: 14px; flex: 1; cursor: pointer; }
+        .btns { display: flex; gap: 10px; }
+        .next { background: var(--amarelo); color: #000; border: none; padding: 15px; border-radius: 12px; font-weight: 800; flex: 2; cursor: pointer; }
+        .back { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; flex: 1; cursor: pointer; }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-    <div class="global-overlay"></div>
-    <div id="container-pre">
-        <center><img src="Frame 26.png" style="width: 100px; margin-bottom: 20px;"></center>
-        <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
+    <div id="form-container">
+        <center><img src="Frame 26.png" style="width: 80px; margin-bottom: 20px;"></center>
+        <div class="progress-bar" id="bar"></div>
 
-        <div class="step-card active" id="s1">
+        <div class="card active" id="s1">
             <h2>Identificação</h2>
             <input type="text" id="nome" placeholder="Nome completo">
-            <input type="tel" id="whatsapp" placeholder="WhatsApp (00) 00000-0000" maxlength="15">
-            <input type="email" id="email" placeholder="E-mail (se aplicável)">
-            <div class="nav-buttons"><button class="btn-next" onclick="next(1)">Próximo</button></div>
+            <input type="tel" id="whatsapp" placeholder="WhatsApp" maxlength="15">
+            <input type="email" id="email" placeholder="E-mail">
+            <button class="next" onclick="next(1)">Continuar</button>
         </div>
 
-        <div class="step-card" id="s2">
-            <h2>Instituição</h2>
-            <p class="label-desc">Ex.: UFLA – DCC, UFLA - NINTEC, Empresa X...</p>
+        <div class="card" id="s2">
+            <h2>Origem</h2>
             <input type="text" id="instituicao" placeholder="Instituição / Unidade">
             <input type="text" id="cidade" placeholder="Cidade / UF">
-            <div class="nav-buttons">
-                <button class="btn-back" onclick="back(2)">Voltar</button>
-                <button class="btn-next" onclick="next(2)">Próximo</button>
-            </div>
+            <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">Próximo</button></div>
         </div>
 
-        <div class="step-card" id="s3">
-            <h2>Qual seu perfil?</h2>
-            <div class="option-stack">
-                <div class="opt-btn g-opt" onclick="selectSingle('g-opt', this, 'Docente Inovação', 'perfil')">Docente ligado a projeto/edital</div>
-                <div class="opt-btn g-opt" onclick="selectSingle('g-opt', this, 'Membro Núcleo/Liga', 'perfil')">Membro de núcleo/liga/grupo</div>
-                <div class="opt-btn g-opt" onclick="selectSingle('g-opt', this, 'Empresa Júnior', 'perfil')">Empresa Júnior</div>
-                <div class="opt-btn g-opt" onclick="selectSingle('g-opt', this, 'Outro', 'perfil')">Outro</div>
+        <div class="card" id="s3">
+            <h2>Perfil</h2>
+            <div class="opt-stack">
+                <div class="opt g" onclick="sel('g',this,'Docente','perfil')">Docente ligado a projeto</div>
+                <div class="opt g" onclick="sel('g',this,'Núcleo','perfil')">Membro de núcleo/liga</div>
+                <div class="opt g" onclick="sel('g',this,'Empresa Júnior','perfil')">Empresa Júnior</div>
+                <div class="opt g" onclick="sel('g',this,'Outro','perfil')">Outro</div>
             </div>
-            <input type="text" id="perfil_outro" placeholder="Especifique seu perfil..." style="display:none;">
-            <div class="nav-buttons">
-                <button class="btn-back" onclick="back(3)">Voltar</button>
-                <button class="btn-next" onclick="next(3)">Próximo</button>
-            </div>
+            <input type="text" id="p_outro" placeholder="Qual?" style="display:none;">
+            <div class="btns"><button class="back" onclick="back(3)">Voltar</button><button class="next" onclick="next(3)">Próximo</button></div>
         </div>
 
-        <div class="step-card" id="s4">
+        <div class="card" id="s4">
             <h2>Experiência</h2>
-            <p class="label-desc">Qual seu nível de experiência com inovação?</p>
-            <div class="option-stack">
-                <div class="opt-btn e-opt" onclick="selectSingle('e-opt', this, 'Já liderei', 'xp')">Já liderei (coordenei) projeto</div>
-                <div class="opt-btn e-opt" onclick="selectSingle('e-opt', this, 'Já participei', 'xp')">Já participei como membro</div>
-                <div class="opt-btn e-opt" onclick="selectSingle('e-opt', this, 'Interesse em entrar', 'xp')">Ainda não participei, mas quero entrar</div>
-                <div class="opt-btn e-opt" onclick="selectSingle('e-opt', this, 'Não é o foco', 'xp')">Não é meu foco agora</div>
+            <div class="opt-stack">
+                <div class="opt e" onclick="sel('e',this,'Liderei','xp')">Já liderei projeto</div>
+                <div class="opt e" onclick="sel('e',this,'Membro','xp')">Já participei como membro</div>
+                <div class="opt e" onclick="sel('e',this,'Quero entrar','xp')">Quero entrar</div>
+                <div class="opt e" onclick="sel('e',this,'Não é foco','xp')">Não é meu foco</div>
             </div>
-            <div class="nav-buttons">
-                <button class="btn-back" onclick="back(4)">Voltar</button>
-                <button class="btn-next" onclick="next(4)">Próximo</button>
-            </div>
+            <div class="btns"><button class="back" onclick="back(4)">Voltar</button><button class="next" onclick="next(4)">Próximo</button></div>
         </div>
 
-        <div class="step-card" id="s5">
-            <h2>Estágio Atual</h2>
-            <p class="label-desc">Em que estágio está sua iniciativa hoje?</p>
-            <div class="option-stack">
-                <div class="opt-btn s-opt" onclick="selectSingle('s-opt', this, 'Ideação', 'estagio')">Ideação</div>
-                <div class="opt-btn s-opt" onclick="selectSingle('s-opt', this, 'Validação', 'estagio')">Validação</div>
-                <div class="opt-btn s-opt" onclick="selectSingle('s-opt', this, 'Execução', 'estagio')">Execução</div>
-                <div class="opt-btn s-opt" onclick="selectSingle('s-opt', this, 'Escala', 'estagio')">Escala</div>
-                <div class="opt-btn s-opt" onclick="selectSingle('s-opt', this, 'Não sei', 'estagio')">Não sei qual estágio estou</div>
+        <div class="card" id="s5">
+            <h2>Estágio</h2>
+            <div class="opt-stack">
+                <div class="opt t" onclick="sel('t',this,'Ideação','estagio')">Ideação</div>
+                <div class="opt t" onclick="sel('t',this,'Validação','estagio')">Validação</div>
+                <div class="opt t" onclick="sel('t',this,'Execução','estagio')">Execução</div>
+                <div class="opt t" onclick="sel('t',this,'Escala','estagio')">Escala</div>
+                <div class="opt t" onclick="sel('t',this,'Não sei','estagio')">Não sei</div>
             </div>
-            <div class="nav-buttons"><button class="btn-back" onclick="back(5)">Voltar</button><button class="btn-next" onclick="next(5)">Próximo</button></div>
+            <div class="btns"><button class="back" onclick="back(5)">Voltar</button><button class="next" onclick="next(5)">Próximo</button></div>
         </div>
 
-        <div class="step-card" id="s6">
-            <h2>Bloqueios</h2>
-            <p class="label-desc">Qual o seu principal desafio para avançar? (Máx. 280 carac.)</p>
-            <textarea id="bloqueio" maxlength="280" placeholder="Digite aqui..." style="height: 80px;"></textarea>
-            <div class="nav-buttons"><button class="btn-back" onclick="back(6)">Voltar</button><button class="btn-next" onclick="next(6)">Próximo</button></div>
+        <div class="card" id="s6">
+            <h2>Desafio Principal</h2>
+            <textarea id="bloqueio" maxlength="280" placeholder="Bloqueio ou desafio atual..." style="height: 80px;"></textarea>
+            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">Próximo</button></div>
         </div>
 
-        <div class="step-card" id="s7">
-            <h2>Conexões</h2>
-            <p class="label-desc">O que você busca do pré-evento? (Selecione até 2)</p>
-            <div class="option-stack">
-                <div class="opt-btn c-opt" onclick="selectMulti('c-opt', this, 'Parceria Acadêmica')">Parceria acadêmica</div>
-                <div class="opt-btn c-opt" onclick="selectMulti('c-opt', this, 'Parceria Empresa')">Parceria com empresa</div>
-                <div class="opt-btn c-opt" onclick="selectMulti('c-opt', this, 'Mentoria')">Mentoria</div>
-                <div class="opt-btn c-opt" onclick="selectMulti('c-opt', this, 'Captação/Recursos')">Captação/recursos</div>
-                <div class="opt-btn c-opt" onclick="selectMulti('c-opt', this, 'Networking')">Networking direcionado</div>
+        <div class="card" id="s7">
+            <h2>Conexão Desejada</h2>
+            <div class="opt-stack">
+                <div class="opt c" onclick="multi(this,'Acadêmica')">Parceria acadêmica</div>
+                <div class="opt c" onclick="multi(this,'Empresa')">Parceria com empresa</div>
+                <div class="opt c" onclick="multi(this,'Mentoria')">Mentoria</div>
+                <div class="opt c" onclick="multi(this,'Recursos')">Captação / Recursos</div>
+                <div class="opt c" onclick="multi(this,'Networking')">Networking</div>
             </div>
-            <div class="nav-buttons"><button class="btn-back" onclick="back(7)">Voltar</button><button class="btn-next" onclick="next(7)">Próximo</button></div>
+            <div class="btns"><button class="back" onclick="back(7)">Voltar</button><button class="next" onclick="next(7)">Próximo</button></div>
         </div>
 
-        <div class="step-card" id="s8">
-            <h2>Finalização</h2>
-            <p class="label-desc">Intenção de virar produto?</p>
-            <select id="produto" style="width:100%; margin-bottom:20px; background:rgba(0,0,0,0.5); color:white; padding:10px; border-radius:10px; border:1px solid var(--glass-border);">
-                <option value="Sim">Sim</option>
-                <option value="Em avaliação">Em avaliação</option>
-                <option value="Não">Não</option>
-            </select>
-            
-            <p class="label-desc">Participar do 1º Bootcamp Ideação?</p>
-            <select id="bootcamp" style="width:100%; margin-bottom:20px; background:rgba(0,0,0,0.5); color:white; padding:10px; border-radius:10px; border:1px solid var(--glass-border);">
-                <option value="Sim">Sim</option>
-                <option value="Talvez">Talvez</option>
-                <option value="Não">Não</option>
-            </select>
-            
-            <div class="nav-buttons">
-                <button class="btn-back" onclick="back(8)">Voltar</button>
-                <button class="btn-next" id="f-btn" onclick="finish()">Finalizar</button>
-            </div>
+        <div class="card" id="s8">
+            <h2>Finalizar</h2>
+            <select id="prod"><option value="">Virar produto?</option><option>Sim</option><option>Avaliação</option><option>Não</option></select>
+            <select id="boot"><option value="">Participar do Bootcamp?</option><option>Sim</option><option>Talvez</option><option>Não</option></select>
+            <div class="btns"><button class="back" onclick="back(8)">Voltar</button><button class="next" id="f-btn" onclick="send()">Finalizar</button></div>
         </div>
 
-        <div class="step-card" id="sFinal" style="text-align: center;">
-            <h2 style="color:var(--amarelo)">Inscrito!</h2>
-            <p>Seus dados foram enviados para o time IpêStart.</p>
+        <div class="card" id="sFinal" style="text-align:center">
+            <h2 style="color:var(--amarelo)">Sucesso!</h2>
+            <p>Inscrição confirmada.</p>
         </div>
     </div>
 
     <script>
         let form = { conexoes: [] };
-        const API_URL = 'https://sheetdb.io/api/v1/o91i7z567ubte';
+        const API = 'https://sheetdb.io/api/v1/o91i7z567ubte';
 
-        // MÁSCARA WHATSAPP
-        document.getElementById('whatsapp').addEventListener('input', e => {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
-
-        // SELEÇÃO ÚNICA
-        function selectSingle(g, b, v, f) {
-            document.querySelectorAll('.'+g).forEach(i => i.classList.remove('selected'));
-            b.classList.add('selected'); form[f] = v;
-            if(f === 'perfil') {
-                document.getElementById('perfil_outro').style.display = (v === 'Outro') ? 'block' : 'none';
-            }
+        function sel(g,b,v,f) {
+            document.querySelectorAll('.'+g).forEach(i=>i.classList.remove('selected'));
+            b.classList.add('selected'); form[f]=v;
+            if(f==='perfil') document.getElementById('p_outro').style.display=(v==='Outro'?'block':'none');
         }
-
-        // SELEÇÃO MÚLTIPLA (LIMITADA A 2)
-        function selectMulti(g, b, v) {
+        function multi(b,v) {
             if(b.classList.contains('selected')) {
-                b.classList.remove('selected');
-                form.conexoes = form.conexoes.filter(item => item !== v);
-            } else {
-                if(form.conexoes.length < 2) {
-                    b.classList.add('selected');
-                    form.conexoes.push(v);
-                } else {
-                    alert("Selecione no máximo 2 opções.");
-                }
+                b.classList.remove('selected'); form.conexoes = form.conexoes.filter(i=>i!==v);
+            } else if(form.conexoes.length < 2) {
+                b.classList.add('selected'); form.conexoes.push(v);
             }
         }
-
         function next(s) {
-            document.getElementById('s'+s).style.display = 'none';
-            const n = document.getElementById('s'+(s+1));
-            n.style.display = 'flex'; n.classList.add('active');
+            document.getElementById('s'+s).style.display='none';
+            document.getElementById('s'+(s+1)).style.display='flex';
+            document.getElementById('s'+(s+1)).classList.add('active');
             document.getElementById('bar').style.width = ((s+1)/8)*100+'%';
         }
-
         function back(s) {
-            document.getElementById('s'+s).style.display = 'none';
-            document.getElementById('s'+(s-1)).style.display = 'flex';
+            document.getElementById('s'+s).style.display='none';
+            document.getElementById('s'+(s-1)).style.display='flex';
             document.getElementById('bar').style.width = ((s-1)/8)*100+'%';
         }
-
-        async function finish() {
-            const btn = document.getElementById('f-btn');
-            btn.innerText = "ENVIANDO..."; btn.disabled = true;
-
-            const payload = {
-                "Nome": document.getElementById('nome').value,
-                "WhatsApp": document.getElementById('whatsapp').value,
-                "Email": document.getElementById('email').value,
-                "Instituicao": document.getElementById('instituicao').value,
-                "Cidade": document.getElementById('cidade').value,
-                "Perfil": form.perfil === 'Outro' ? document.getElementById('perfil_outro').value : form.perfil,
-                "Experiencia": form.xp || "",
-                "Estagio": form.estagio || "",
-                "Bloqueio": document.getElementById('bloqueio').value,
-                "Conexoes": form.conexoes.join(", "),
-                "Produto": document.getElementById('produto').value,
-                "Bootcamp": document.getElementById('bootcamp').value
+        async function send() {
+            const btn = document.getElementById('f-btn'); btn.disabled=true; btn.innerText="ENVIANDO...";
+            const data = {
+                "Nome": document.getElementById('nome').value, "WhatsApp": document.getElementById('whatsapp').value,
+                "Email": document.getElementById('email').value, "Instituicao": document.getElementById('instituicao').value,
+                "Cidade": document.getElementById('cidade').value, "Perfil": form.perfil==='Outro'?document.getElementById('p_outro').value:form.perfil,
+                "Experiencia": form.xp, "Estagio": form.estagio, "Bloqueio": document.getElementById('bloqueio').value,
+                "Conexoes": form.conexoes.join(", "), "Produto": document.getElementById('prod').value, "Bootcamp": document.getElementById('boot').value
             };
-
             try {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: [payload] })
-                });
-                document.getElementById('s8').style.display = 'none';
-                document.getElementById('sFinal').style.display = 'flex';
-                document.getElementById('bar').style.width = '100%';
-            } catch (e) {
-                alert("Erro ao salvar."); btn.disabled = false; btn.innerText = "Finalizar";
-            }
+                await fetch(API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:[data]}) });
+                document.getElementById('s8').style.display='none'; document.getElementById('sFinal').style.display='flex';
+            } catch(e) { alert("Erro ao salvar."); btn.disabled=false; }
         }
     </script>
 </body>
