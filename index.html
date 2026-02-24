@@ -12,6 +12,12 @@
             background-size: cover; color: var(--branco); display: flex; align-items: center; justify-content: center; min-height: 100vh;
         }
         #form-container { width: 100%; max-width: 420px; padding: 20px; box-sizing: border-box; }
+        
+        /* Título do Evento */
+        .event-header { text-align: center; margin-bottom: 25px; }
+        .event-header h1 { font-size: 14px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0 5px 0; font-weight: 800; }
+        .event-header p { font-size: 18px; margin: 0; font-weight: 400; opacity: 0.9; }
+
         .progress-bar { height: 4px; width: 14%; background: var(--amarelo); margin-bottom: 30px; transition: 0.4s; box-shadow: 0 0 10px var(--amarelo); }
         
         .card { 
@@ -27,6 +33,7 @@
             font-size: 16px; background: transparent; color: #fff; outline: none; margin-bottom: 20px;
         }
         input:focus { border-bottom-color: var(--amarelo); }
+        select { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; color: #fff; }
 
         .opt-stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
         .opt { 
@@ -44,7 +51,12 @@
 </head>
 <body>
     <div id="form-container">
-        <center><img src="Frame 26.png" style="width: 130px; margin-bottom: 25px;"></center>
+        <div class="event-header">
+            <img src="Frame 26.png" style="width: 130px;">
+            <h1>Pré-Evento Oficial</h1>
+            <p>1º Bootcamp Ideação IpêStart</p>
+        </div>
+
         <div class="progress-bar" id="bar"></div>
 
         <div class="card active" id="s1">
@@ -77,7 +89,7 @@
         <div class="card" id="s4">
             <h2>Experiência</h2>
             <div class="opt-stack">
-                <div class="opt e" onclick="sel('e',this,'Liderei','xp')">Já liderei projeto</div>
+                <div class="opt e" onclick="sel('e',this,'Já liderei','xp')">Já liderei projeto</div>
                 <div class="opt e" onclick="sel('e',this,'Membro','xp')">Já participei como membro</div>
                 <div class="opt e" onclick="sel('e',this,'Quero entrar','xp')">Quero entrar</div>
                 <div class="opt e" onclick="sel('e',this,'Não é foco','xp')">Não é meu foco</div>
@@ -87,11 +99,12 @@
 
         <div class="card" id="s5">
             <h2>Estágio e Visão</h2>
-            <select id="estagio" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px;">
+            <select id="estagio">
                 <option value="">Estágio da iniciativa?</option>
                 <option>Ideação</option><option>Validação</option><option>Execução</option><option>Escala</option><option>Não sei</option>
             </select>
-            <select id="prod" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px;">
+            <div style="margin-top: 10px;"></div>
+            <select id="prod">
                 <option value="">Pretende virar produto?</option>
                 <option>Sim</option><option>Em avaliação</option><option>Não</option>
             </select>
@@ -100,7 +113,7 @@
 
         <div class="card" id="s6">
             <h2>Seu Desafio</h2>
-            <textarea id="bloqueio" maxlength="280" placeholder="Qual seu principal bloqueio hoje?" style="height: 100px; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px;"></textarea>
+            <textarea id="bloqueio" maxlength="280" placeholder="Qual seu principal bloqueio hoje?" style="height: 100px; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; color:#fff; background:transparent; font-family:inherit; outline:none;"></textarea>
             <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">Próximo</button></div>
         </div>
 
@@ -112,7 +125,7 @@
                 <div class="opt c" onclick="multi(this,'Mentoria')">Mentoria</div>
                 <div class="opt c" onclick="multi(this,'Networking')">Networking</div>
             </div>
-            <select id="boot" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px;">
+            <select id="boot" style="width: 100%;">
                 <option value="">Participará do Bootcamp?</option>
                 <option>Sim</option><option>Talvez</option><option>Não</option>
             </select>
@@ -124,7 +137,7 @@
 
         <div class="card" id="sFinal" style="text-align:center">
             <h2 style="color:var(--amarelo)">Inscrição Confirmada!</h2>
-            <p>Obrigado por se conectar ao ecossistema IpêTech.</p>
+            <p>Seus dados foram enviados. Nos vemos no evento!</p>
             <button class="next" onclick="location.reload()" style="margin-top: 15px;">Novo Registro</button>
         </div>
     </div>
@@ -195,8 +208,7 @@
                 document.getElementById('sFinal').style.display='flex';
                 document.getElementById('bar').style.width = '100%';
             } catch(e) { 
-                alert("Erro ao enviar. Tente novamente."); 
-                btn.disabled=false; btn.innerText="Finalizar Inscrição";
+                alert("Erro ao enviar."); btn.disabled=false; btn.innerText="Finalizar";
             }
         }
     </script>
