@@ -6,76 +6,79 @@
     <title>Inscrição | IpêTech</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --amarelo: #F2C94C; --roxo: #7B5DFF; --branco: #FFFFFF; --glass: rgba(0, 0, 0, 0.85); }
+        :root { --amarelo: #F2C94C; --roxo: #7B5DFF; --branco: #FFFFFF; --glass: rgba(22, 22, 26, 0.95); }
         body { 
             margin: 0; font-family: 'Manrope', sans-serif; background: var(--roxo) url('background.png') no-repeat center center fixed; 
             background-size: cover; color: var(--branco); display: flex; align-items: center; justify-content: center; min-height: 100vh;
         }
-        #form-container { width: 100%; max-width: 420px; padding: 20px; box-sizing: border-box; }
+        #form-container { width: 100%; max-width: 440px; padding: 20px; box-sizing: border-box; }
         
-        /* Título do Evento */
         .event-header { text-align: center; margin-bottom: 25px; }
-        .event-header h1 { font-size: 14px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0 5px 0; font-weight: 800; }
-        .event-header p { font-size: 18px; margin: 0; font-weight: 400; opacity: 0.9; }
+        .event-header h1 { font-size: 13px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 2px; margin: 15px 0 5px 0; font-weight: 800; }
+        .event-header p { font-size: 17px; margin: 0; font-weight: 400; opacity: 0.9; }
 
-        .progress-bar { height: 4px; width: 14%; background: var(--amarelo); margin-bottom: 30px; transition: 0.4s; box-shadow: 0 0 10px var(--amarelo); }
+        .progress-bar { height: 4px; width: 12.5%; background: var(--amarelo); margin-bottom: 30px; transition: 0.4s; box-shadow: 0 0 10px var(--amarelo); border-radius: 2px; }
         
         .card { 
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            padding: 35px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15);
-            display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            padding: 40px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.1);
+            display: none; flex-direction: column; box-shadow: 0 25px 50px rgba(0,0,0,0.4);
         }
         .card.active { display: flex; animation: fadeIn 0.4s ease; }
 
-        h2 { font-size: 18px; margin-bottom: 20px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; }
+        h2 { font-size: 16px; margin-bottom: 25px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1.2px; line-height: 1.4; }
+        
         input, textarea, select { 
-            width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.3); 
-            font-size: 16px; background: transparent; color: #fff; outline: none; margin-bottom: 20px;
+            width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); 
+            font-size: 16px; background: transparent; color: #fff; outline: none; margin-bottom: 25px;
+            font-family: 'Manrope';
         }
         input:focus { border-bottom-color: var(--amarelo); }
-        select { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; color: #fff; }
+        
+        select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; margin-bottom: 20px; cursor: pointer; }
+        option { background: #16161a; color: #fff; }
 
-        .opt-stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .opt-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
         .opt { 
-            padding: 14px; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; 
-            cursor: pointer; font-size: 14px; transition: 0.2s;
+            padding: 15px; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; 
+            cursor: pointer; font-size: 14px; transition: 0.2s; background: rgba(255,255,255,0.02);
         }
-        .opt.selected { background: var(--amarelo); color: #000; font-weight: 700; border-color: var(--amarelo); }
+        .opt.selected { background: var(--amarelo); color: #000; font-weight: 800; border-color: var(--amarelo); }
 
-        .btns { display: flex; gap: 10px; margin-top: 10px; }
-        .next { background: var(--amarelo); color: #000; border: none; padding: 16px; border-radius: 14px; font-weight: 800; flex: 2; cursor: pointer; text-transform: uppercase; font-size: 13px; }
-        .back { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 14px; flex: 1; cursor: pointer; }
+        .btns { display: flex; gap: 12px; margin-top: 10px; }
+        .next { background: var(--amarelo); color: #000; border: none; padding: 18px; border-radius: 16px; font-weight: 800; flex: 2; cursor: pointer; text-transform: uppercase; font-size: 13px; }
+        .back { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; flex: 1; cursor: pointer; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <div id="form-container">
         <div class="event-header">
-            <img src="Frame 26.png" style="width: 130px;">
-            <h1>Pré-Evento Oficial</h1>
+            <img src="Frame 26.png" style="width: 140px;">
+            <h1>PRÉ-EVENTO OFICIAL</h1>
             <p>1º Bootcamp Ideação IpêStart</p>
         </div>
 
         <div class="progress-bar" id="bar"></div>
 
         <div class="card active" id="s1">
-            <h2>Identificação</h2>
+            <h2>IDENTIFICAÇÃO</h2>
             <input type="text" id="nome" placeholder="Nome completo">
             <input type="tel" id="whatsapp" placeholder="WhatsApp" maxlength="15">
-            <input type="email" id="email" placeholder="E-mail">
+            <input type="email" id="email" placeholder="E-mail (se aplicável)">
             <button class="next" onclick="next(1)">Continuar</button>
         </div>
 
         <div class="card" id="s2">
-            <h2>Origem</h2>
+            <h2>ORIGEM</h2>
             <input type="text" id="instituicao" placeholder="Instituição / Unidade">
             <input type="text" id="cidade" placeholder="Cidade / UF">
-            <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">Próximo</button></div>
+            <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">PRÓXIMO</button></div>
         </div>
 
         <div class="card" id="s3">
-            <h2>Qual seu perfil?</h2>
+            <h2>QUAL SEU PERFIL?</h2>
             <div class="opt-stack">
                 <div class="opt g" onclick="sel('g',this,'Docente','perfil')">Docente ligado a projeto</div>
                 <div class="opt g" onclick="sel('g',this,'Núcleo','perfil')">Membro de núcleo/liga</div>
@@ -83,62 +86,75 @@
                 <div class="opt g" onclick="sel('g',this,'Outro','perfil')">Outro</div>
             </div>
             <input type="text" id="p_outro" placeholder="Especifique..." style="display:none;">
-            <div class="btns"><button class="back" onclick="back(3)">Voltar</button><button class="next" onclick="next(3)">Próximo</button></div>
+            <div class="btns"><button class="back" onclick="back(3)">Voltar</button><button class="next" onclick="next(3)">PRÓXIMO</button></div>
         </div>
 
         <div class="card" id="s4">
-            <h2>Experiência</h2>
+            <h2>QUAL SEU NÍVEL DE EXPERIÊNCIA?</h2>
             <div class="opt-stack">
-                <div class="opt e" onclick="sel('e',this,'Já liderei','xp')">Já liderei projeto</div>
-                <div class="opt e" onclick="sel('e',this,'Membro','xp')">Já participei como membro</div>
-                <div class="opt e" onclick="sel('e',this,'Quero entrar','xp')">Quero entrar</div>
-                <div class="opt e" onclick="sel('e',this,'Não é foco','xp')">Não é meu foco</div>
+                <div class="opt e" onclick="sel('e',this,'Já liderei','xp')">Já liderei (coordenei) projeto</div>
+                <div class="opt e" onclick="sel('e',this,'Já participei','xp')">Já participei como membro</div>
+                <div class="opt e" onclick="sel('e',this,'Interesse','xp')">Ainda não participei, mas quero entrar</div>
+                <div class="opt e" onclick="sel('e',this,'Não foca','xp')">Não é meu foco agora</div>
             </div>
-            <div class="btns"><button class="back" onclick="back(4)">Voltar</button><button class="next" onclick="next(4)">Próximo</button></div>
+            <div class="btns"><button class="back" onclick="back(4)">Voltar</button><button class="next" onclick="next(4)">PRÓXIMO</button></div>
         </div>
 
         <div class="card" id="s5">
-            <h2>Estágio e Visão</h2>
-            <select id="estagio">
-                <option value="">Estágio da iniciativa?</option>
-                <option>Ideação</option><option>Validação</option><option>Execução</option><option>Escala</option><option>Não sei</option>
-            </select>
-            <div style="margin-top: 10px;"></div>
-            <select id="prod">
-                <option value="">Pretende virar produto?</option>
-                <option>Sim</option><option>Em avaliação</option><option>Não</option>
-            </select>
-            <div class="btns"><button class="back" onclick="back(5)">Voltar</button><button class="next" onclick="next(5)">Próximo</button></div>
+            <h2>EM QUE ESTÁGIO ESTÁ SUA INICIATIVA HOJE?</h2>
+            <div class="opt-stack">
+                <div class="opt t" onclick="sel('t',this,'Ideação','estagio')">Ideação</div>
+                <div class="opt t" onclick="sel('t',this,'Validação','estagio')">Validação</div>
+                <div class="opt t" onclick="sel('t',this,'Execução','estagio')">Execução</div>
+                <div class="opt t" onclick="sel('t',this,'Escala','estagio')">Escala</div>
+                <div class="opt t" onclick="sel('t',this,'Não sei','estagio')">Não sei qual estágio estou</div>
+            </div>
+            <div class="btns"><button class="back" onclick="back(5)">Voltar</button><button class="next" onclick="next(5)">PRÓXIMO</button></div>
         </div>
 
         <div class="card" id="s6">
-            <h2>Seu Desafio</h2>
-            <textarea id="bloqueio" maxlength="280" placeholder="Qual seu principal bloqueio hoje?" style="height: 100px; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; color:#fff; background:transparent; font-family:inherit; outline:none;"></textarea>
-            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">Próximo</button></div>
+            <h2>QUAL O SEU PRINCIPAL BLOQUEIO OU DESAFIO PARA AVANÇAR NA INOVAÇÃO?</h2>
+            <textarea id="bloqueio" maxlength="280" placeholder="Sua resposta (até 280 caracteres)..." style="height: 100px; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; color:#fff; background:rgba(255,255,255,0.02); outline:none;"></textarea>
+            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">PRÓXIMO</button></div>
         </div>
 
         <div class="card" id="s7">
-            <h2>Conexões e Bootcamp</h2>
+            <h2>QUE TIPO DE CONEXÃO OU RESULTADO VOCÊ QUER DO PRÉ-EVENTO?</h2>
             <div class="opt-stack">
                 <div class="opt c" onclick="multi(this,'Acadêmica')">Parceria acadêmica</div>
                 <div class="opt c" onclick="multi(this,'Empresa')">Parceria com empresa</div>
                 <div class="opt c" onclick="multi(this,'Mentoria')">Mentoria</div>
-                <div class="opt c" onclick="multi(this,'Networking')">Networking</div>
+                <div class="opt c" onclick="multi(this,'Recursos')">Captação/recursos</div>
+                <div class="opt c" onclick="multi(this,'Networking')">Networking direcionado</div>
             </div>
-            <select id="boot" style="width: 100%;">
-                <option value="">Participará do Bootcamp?</option>
-                <option>Sim</option><option>Talvez</option><option>Não</option>
+            <div class="btns"><button class="back" onclick="back(7)">Voltar</button><button class="next" onclick="next(7)">PRÓXIMO</button></div>
+        </div>
+
+        <div class="card" id="s8">
+            <h2>FINALIZANDO</h2>
+            <p style="font-size: 14px; margin-bottom: 10px; opacity: 0.8;">Sua iniciativa tem intenção de virar produto/serviço para sociedade?*</p>
+            <select id="prod">
+                <option value="Sim">Sim</option>
+                <option value="Em avaliação">Em avaliação</option>
+                <option value="Não">Não</option>
             </select>
+
+            <p style="font-size: 14px; margin-bottom: 10px; opacity: 0.8;">Você pretende participar do 1º Bootcamp Ideação do IpêStart?*</p>
+            <select id="boot">
+                <option value="Sim">Sim</option>
+                <option value="Talvez">Talvez</option>
+                <option value="Não">Não</option>
+            </select>
+
             <div class="btns">
-                <button class="back" onclick="back(7)">Voltar</button>
-                <button class="next" id="f-btn" onclick="send()">Finalizar Inscrição</button>
+                <button class="back" onclick="back(8)">Voltar</button>
+                <button class="next" id="f-btn" onclick="send()">FINALIZAR INSCRIÇÃO</button>
             </div>
         </div>
 
         <div class="card" id="sFinal" style="text-align:center">
-            <h2 style="color:var(--amarelo)">Inscrição Confirmada!</h2>
+            <h2 style="color:var(--amarelo)">SUCESSO!</h2>
             <p>Seus dados foram enviados. Nos vemos no evento!</p>
-            <button class="next" onclick="location.reload()" style="margin-top: 15px;">Novo Registro</button>
         </div>
     </div>
 
@@ -146,7 +162,6 @@
         let form = { conexoes: [] };
         const API = 'https://sheetdb.io/api/v1/o91i7z567ubte';
 
-        // Máscara WhatsApp
         document.getElementById('whatsapp').addEventListener('input', e => {
             let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
             e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
@@ -170,13 +185,13 @@
             document.getElementById('s'+s).style.display='none';
             const nxt = document.getElementById('s'+(s+1));
             nxt.style.display='flex'; nxt.classList.add('active');
-            document.getElementById('bar').style.width = ((s+1)/7)*100+'%';
+            document.getElementById('bar').style.width = ((s+1)/8)*100+'%';
         }
 
         function back(s) {
             document.getElementById('s'+s).style.display='none';
             document.getElementById('s'+(s-1)).style.display='flex';
-            document.getElementById('bar').style.width = ((s-1)/7)*100+'%';
+            document.getElementById('bar').style.width = ((s-1)/8)*100+'%';
         }
 
         async function send() {
@@ -191,7 +206,7 @@
                 "Cidade": document.getElementById('cidade').value,
                 "Perfil": form.perfil==='Outro' ? document.getElementById('p_outro').value : form.perfil,
                 "Experiencia": form.xp,
-                "Estagio": document.getElementById('estagio').value,
+                "Estagio": form.estagio,
                 "Bloqueio": document.getElementById('bloqueio').value,
                 "Conexoes": form.conexoes.join(", "),
                 "Produto": document.getElementById('prod').value,
@@ -199,17 +214,11 @@
             };
 
             try {
-                await fetch(API, { 
-                    method:'POST', 
-                    headers:{'Content-Type':'application/json'}, 
-                    body:JSON.stringify({data:[data]}) 
-                });
-                document.getElementById('s7').style.display='none'; 
+                await fetch(API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:[data]}) });
+                document.getElementById('s8').style.display='none'; 
                 document.getElementById('sFinal').style.display='flex';
                 document.getElementById('bar').style.width = '100%';
-            } catch(e) { 
-                alert("Erro ao enviar."); btn.disabled=false; btn.innerText="Finalizar";
-            }
+            } catch(e) { alert("Erro ao enviar."); btn.disabled=false; btn.innerText="FINALIZAR"; }
         }
     </script>
 </body>
