@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscrição | IpêStart</title>
+    <title>Triagem e Demandas | IpêTech</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -24,70 +24,45 @@
             margin: 0; padding: 0; font-family: 'Manrope', sans-serif; 
             background: var(--preto); color: var(--branco); 
             background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('background.png');
-            background-size: cover; 
-            background-position: center; 
-            background-attachment: fixed;
+            background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; align-items: center; justify-content: center; min-height: 100vh;
         }
 
         #form-container { width: 100%; max-width: 480px; padding: 20px; box-sizing: border-box; }
         
-        /* HEADER DO EVENTO */
         .event-header { text-align: center; margin-bottom: 30px; animation: slideUp 0.6s ease; }
         .event-header img { width: 120px; margin-bottom: 15px; }
-        .event-header h1 { font-size: 14px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 3px; margin: 0 0 5px 0; font-weight: 800; }
-        .event-header p { font-size: 20px; margin: 0; font-weight: 800; opacity: 0.9; }
+        .event-header h1 { font-size: 16px; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0; font-weight: 800; }
+        .event-header p { font-size: 14px; margin: 0; opacity: 0.8; line-height: 1.5; }
 
-        /* BARRA DE PROGRESSO */
         .progress-wrap { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-bottom: 30px; }
         .progress-bar { height: 100%; width: 14.2%; background: var(--amarelo); transition: 0.6s; border-radius: 10px; box-shadow: 0 0 15px var(--amarelo); }
         
-        /* CARDS */
         .card { 
-            background: var(--glass); 
-            padding: 40px; 
-            border-radius: 32px; 
-            border: 1px solid var(--border); 
-            display: none; 
-            box-sizing: border-box; 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass); padding: 40px; border-radius: 32px; border: 1px solid var(--border); 
+            display: none; box-sizing: border-box; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         }
         .card.active { display: flex; flex-direction: column; animation: slideUp 0.4s ease; }
 
-        h2 { font-size: 16px; margin: 0 0 25px 0; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.4; font-weight: 800; }
+        h2 { font-size: 16px; margin: 0 0 20px 0; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; line-height: 1.4; font-weight: 800; }
+        .hint { font-size: 12px; opacity: 0.6; margin-top: -15px; margin-bottom: 20px; }
         
-        /* INPUTS E TEXTAREAS */
-        input[type="text"], input[type="tel"], input[type="email"], textarea { 
+        input[type="text"], input[type="tel"], input[type="email"] { 
             width: 100%; background: transparent; border: none; border-bottom: 2px solid #333; 
             color: #fff; padding: 15px 0; font-size: 16px; outline: none; margin-bottom: 25px; 
             font-family: 'Manrope'; box-sizing: border-box; transition: 0.3s;
         }
-        input:focus, textarea:focus { border-bottom-color: var(--amarelo); }
+        input:focus { border-bottom-color: var(--amarelo); }
 
-        /* SELECTS CUSTOMIZADOS PARA DARK MODE */
-        select { 
-            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid #333; 
-            color: #fff; padding: 15px; font-size: 16px; outline: none; margin-bottom: 25px; 
-            font-family: 'Manrope'; border-radius: 12px; cursor: pointer; appearance: none;
-            transition: 0.3s;
-        }
-        select:focus { border-color: var(--amarelo); }
-        option { background: #111; color: #fff; padding: 10px; }
-
-        /* OPÇÕES SELECIONÁVEIS */
-        .opt-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .opt { 
             border: 1px solid #333; padding: 15px; border-radius: 12px; cursor: pointer; 
-            text-align: center; font-size: 14px; transition: 0.2s; background: rgba(255,255,255,0.03); 
-            display: flex; align-items: center; justify-content: center; line-height: 1.3;
+            text-align: center; font-size: 13px; transition: 0.2s; background: rgba(255,255,255,0.03); 
+            display: flex; align-items: center; justify-content: center; line-height: 1.3; font-weight: 600;
         }
         .opt.selected { background: var(--amarelo); color: #000; font-weight: 800; border-color: var(--amarelo); }
-        
-        /* Ajuste para botões que precisam ocupar a linha toda (Ex: Estágio "Não sei") */
-        .opt.full-width { grid-column: span 2; }
+        .opt.full { grid-column: span 2; }
 
-        /* BOTÕES DE NAVEGAÇÃO */
         .btns { display: flex; gap: 10px; margin-top: 10px; }
         .next { background: var(--amarelo); color: #000; border: none; padding: 18px; border-radius: 15px; font-weight: 800; flex: 2; cursor: pointer; text-transform: uppercase; font-family: 'Manrope'; font-size: 14px; transition: 0.3s; }
         .next:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(242, 201, 76, 0.2); }
@@ -101,8 +76,8 @@
     <div id="form-container">
         <div class="event-header">
             <img src="Frame 26.png" alt="IpêStart">
-            <h1>PRÉ-EVENTO OFICIAL</h1>
-            <p>1º Bootcamp Ideação IpêStart</p>
+            <h1>MAPA DE DEMANDAS & TRIAGEM</h1>
+            <p>Responda rapidinho para receber um direcionamento de apoio (eventos, conexões, mentoria ou incubação).</p>
         </div>
 
         <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
@@ -111,202 +86,268 @@
             <h2>01. Identificação</h2>
             <input type="text" id="nome" placeholder="Nome completo" onkeyup="checkEnter(event, 1)">
             <input type="tel" id="whatsapp" placeholder="WhatsApp" maxlength="15" onkeyup="checkEnter(event, 1)">
-            <input type="email" id="email" placeholder="E-mail (obrigatório)" onkeyup="checkEnter(event, 1)">
+            <input type="email" id="email" placeholder="E-mail" onkeyup="checkEnter(event, 1)">
             <button class="next" onclick="next(1)" style="margin-top: 10px;">Continuar</button>
         </div>
 
         <div class="card" id="s2">
             <h2>02. Qual seu perfil?</h2>
-            <div class="opt-stack">
-                <div class="opt g" onclick="sel('g',this,'Docente','perfil')">Docente ligado a projeto</div>
-                <div class="opt g" onclick="sel('g',this,'Núcleo','perfil')">Membro de núcleo/liga</div>
-                <div class="opt g" onclick="sel('g',this,'Empresa Júnior','perfil')">Empresa Júnior</div>
-                <div class="opt g" onclick="sel('g',this,'Outro','perfil')">Outros</div>
+            <div class="opt-grid">
+                <div class="opt p" onclick="sel('p',this,'Empresa Júnior','perfil')">Empresa Júnior</div>
+                <div class="opt p" onclick="sel('p',this,'Núcleo','perfil')">Núcleo / Liga</div>
+                <div class="opt p" onclick="sel('p',this,'Docente','perfil')">Docente</div>
+                <div class="opt p" onclick="sel('p',this,'Pesquisa','perfil')">Projeto de Pesquisa</div>
+                <div class="opt p full" onclick="sel('p',this,'Outro','perfil')">Outro</div>
             </div>
-            <input type="text" id="p_outro" placeholder="Especifique seu perfil" style="display:none;">
             <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">Próximo</button></div>
         </div>
 
         <div class="card" id="s3">
-            <h2>03. Nível de Experiência</h2>
-            <div class="opt-stack">
-                <div class="opt e" onclick="sel('e',this,'Já liderei','xp')">Já liderei projeto</div>
-                <div class="opt e" onclick="sel('e',this,'Já participei','xp')">Já participei (membro)</div>
-                <div class="opt e full-width" onclick="sel('e',this,'Interesse','xp')">Ainda não participei, mas quero entrar</div>
-                <div class="opt e full-width" onclick="sel('e',this,'Não foca','xp')">Não é meu foco agora</div>
+            <h2>03. Você tem alguma iniciativa ou projeto em andamento?</h2>
+            <div class="opt-grid">
+                <div class="opt full s" onclick="sel('s',this,'Sim, ativo','status')">Sim, ativo</div>
+                <div class="opt full s" onclick="sel('s',this,'Ideia em mente','status')">Tenho algo em mente</div>
+                <div class="opt full s" onclick="sel('s',this,'Ainda não','status')">Ainda não</div>
             </div>
             <div class="btns"><button class="back" onclick="back(3)">Voltar</button><button class="next" onclick="next(3)">Próximo</button></div>
         </div>
 
         <div class="card" id="s4">
-            <h2>04. Estágio da Iniciativa hoje</h2>
-            <div class="opt-stack">
-                <div class="opt t" onclick="sel('t',this,'Ideação','estagio')">Ideação</div>
-                <div class="opt t" onclick="sel('t',this,'Validação','estagio')">Validação</div>
-                <div class="opt t" onclick="sel('t',this,'Execução','estagio')">Execução</div>
-                <div class="opt t" onclick="sel('t',this,'Escala','estagio')">Escala</div>
-                <div class="opt t full-width" onclick="sel('t',this,'Não sei','estagio')">Não sei qual estágio estou</div>
+            <h2>04. Em qual fase você está mais perto?</h2>
+            <div class="opt-grid">
+                <div class="opt f" onclick="sel('f',this,'Problema','fase')">Problema / Tema</div>
+                <div class="opt f" onclick="sel('f',this,'Ideia','fase')">Ideia desenhada</div>
+                <div class="opt f" onclick="sel('f',this,'Protótipo','fase')">Protótipo / POC</div>
+                <div class="opt f" onclick="sel('f',this,'Tração','fase')">Tração / Escala</div>
+                <div class="opt f full" onclick="sel('f',this,'Explorando','fase')">Só explorando o assunto</div>
             </div>
             <div class="btns"><button class="back" onclick="back(4)">Voltar</button><button class="next" onclick="next(4)">Próximo</button></div>
         </div>
 
         <div class="card" id="s5">
-            <h2>05. Principal bloqueio para avançar na inovação?</h2>
-            <textarea id="bloqueio" maxlength="280" placeholder="Digite sua resposta aqui (até 280 caracteres)..." style="height: 120px; resize: none;"></textarea>
+            <h2>05. Qual bloqueio quer destravar em 30 dias?</h2>
+            <div class="opt-grid">
+                <div class="opt b" onclick="sel('b',this,'Validação','desafio')">Validar ideia/mercado</div>
+                <div class="opt b" onclick="sel('b',this,'Equipe','desafio')">Formar equipe</div>
+                <div class="opt b" onclick="sel('b',this,'Técnico','desafio')">Desenvolvimento Técnico</div>
+                <div class="opt b" onclick="sel('b',this,'Recursos','desafio')">Conseguir recursos</div>
+                <div class="opt b full" onclick="sel('b',this,'Começar','desafio')">Não sei por onde começar</div>
+            </div>
             <div class="btns"><button class="back" onclick="back(5)">Voltar</button><button class="next" onclick="next(5)">Próximo</button></div>
         </div>
 
         <div class="card" id="s6">
-            <h2>06. O que você busca no pré-evento?</h2>
-            <p style="font-size: 13px; opacity: 0.6; margin-top: -15px; margin-bottom: 20px;">(Selecione até 2 opções)</p>
-            <div class="opt-stack">
-                <div class="opt c" onclick="multi(this,'Acadêmica')">Parceria acadêmica</div>
-                <div class="opt c" onclick="multi(this,'Empresa')">Parceria empresa</div>
-                <div class="opt c" onclick="multi(this,'Mentoria')">Mentoria</div>
-                <div class="opt c" onclick="multi(this,'Recursos')">Captação/recursos</div>
-                <div class="opt c full-width" onclick="multi(this,'Networking')">Networking direcionado</div>
-                <div class="opt c full-width" onclick="multi(this,'Outro')">Outro</div>
+            <h2>06. Interesse no Bootcamp Ideação?</h2>
+            <div class="opt-grid">
+                <div class="opt i" onclick="sel('i',this,'Sim','boot')">Sim</div>
+                <div class="opt i" onclick="sel('i',this,'Talvez','boot')">Talvez</div>
+                <div class="opt i full" onclick="sel('i',this,'Não','boot')">Não</div>
             </div>
-            <input type="text" id="c_outro" placeholder="Especifique o que busca..." style="display:none;">
-            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="next(6)">Próximo</button></div>
+            
+            <h2 style="margin-top: 10px;">Melhor horário?</h2>
+            <div class="opt-grid">
+                <div class="opt t" onclick="sel('t',this,'Manhã','turno')">Manhã</div>
+                <div class="opt t" onclick="sel('t',this,'Tarde','turno')">Tarde</div>
+                <div class="opt t full" onclick="sel('t',this,'Noite','turno')">Noite</div>
+            </div>
+            <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="route()">Continuar</button></div>
         </div>
 
-        <div class="card" id="s7">
-            <h2>07. Finalizando</h2>
-            <p style="font-size: 14px; margin-bottom: 10px; color: var(--amarelo); font-weight: 600;">Sua iniciativa tem intenção de virar produto/serviço para a sociedade?*</p>
-            <select id="prod">
-                <option value="" disabled selected>Selecione uma opção</option>
-                <option value="Sim">Sim</option>
-                <option value="Em avaliação">Em avaliação</option>
-                <option value="Não">Não</option>
-            </select>
-
-            <p style="font-size: 14px; margin-bottom: 10px; color: var(--amarelo); font-weight: 600;">Você pretende participar do 1º Bootcamp Ideação?</p>
-            <select id="boot">
-                <option value="" disabled selected>Selecione uma opção</option>
-                <option value="Sim">Sim, com certeza</option>
-                <option value="Talvez">Ainda estou avaliando</option>
-                <option value="Não">Não</option>
-            </select>
-
-            <div class="btns">
-                <button class="back" onclick="back(7)">Voltar</button>
-                <button class="next" id="f-btn" onclick="send()">Finalizar</button>
+        <div class="card" id="s7A">
+            <h2 style="font-size: 14px; margin-bottom: 5px;">A1. Radar de 90 dias:</h2>
+            <p class="hint">O que farão? (Pode marcar vários)</p>
+            <div class="opt-grid" style="margin-bottom: 15px;">
+                <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Capacitação</div>
+                <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Hackathon</div>
+                <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Evento Técnico</div>
+                <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Proj. Empresa</div>
             </div>
+
+            <h2 style="font-size: 14px; margin-bottom: 5px;">A2. Como o Parque pode apoiar?</h2>
+            <p class="hint">Marque até 2 opções</p>
+            <div class="opt-grid" style="margin-bottom: 15px;">
+                <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Espaço/Infra</div>
+                <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Mentores</div>
+                <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Metodologia</div>
+                <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Conexões</div>
+            </div>
+
+            <h2 style="font-size: 14px; margin-bottom: 10px;">A3. Topam ser multiplicadores?</h2>
+            <div class="opt-grid">
+                <div class="opt a3 full" onclick="sel('a3',this,'Sim, replicar','mult')">Sim, replicar no grupo</div>
+                <div class="opt a3 full" onclick="sel('a3',this,'Sim, pontual','mult')">Sim, pontualmente</div>
+                <div class="opt a3 full" onclick="sel('a3',this,'Não','mult')">Não por enquanto</div>
+            </div>
+            
+            <input type="text" id="link" placeholder="Link do Instagram ou Drive (Opcional)" style="margin-top:10px;">
+
+            <div class="btns"><button class="back" onclick="back(7, 'A')">Voltar</button><button class="next" id="btn-a" onclick="send()">Finalizar</button></div>
+        </div>
+
+        <div class="card" id="s7B">
+            <h2 style="font-size: 14px; margin-bottom: 10px;">B1. Potencial para virar Produto/Serviço?</h2>
+            <div class="opt-grid" style="margin-bottom: 15px;">
+                <div class="opt b1" onclick="sel('b1',this,'Sim','potencial')">Sim</div>
+                <div class="opt b1" onclick="sel('b1',this,'Talvez','potencial')">Talvez</div>
+                <div class="opt b1 full" onclick="sel('b1',this,'Não sei','potencial')">Não / Não sei</div>
+            </div>
+
+            <h2 style="font-size: 14px; margin-bottom: 5px;">B2. O que mais te trava hoje?</h2>
+            <p class="hint">Marque até 2 opções</p>
+            <div class="opt-grid" style="margin-bottom: 15px;">
+                <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Tempo</div>
+                <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Time</div>
+                <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Funding</div>
+                <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Parcerias</div>
+            </div>
+
+            <h2 style="font-size: 14px; margin-bottom: 10px;">B3. Como prefere se envolver?</h2>
+            <div class="opt-grid" style="margin-bottom: 15px;">
+                <div class="opt b3 full" onclick="sel('b3',this,'Incubar','envolv')">Incubar iniciativa</div>
+                <div class="opt b3 full" onclick="sel('b3',this,'Mentor','envolv')">Ser Mentor(a)</div>
+            </div>
+
+            <h2 style="font-size: 14px; margin-bottom: 10px;">B4. Topa um papo rápido de 15 min?</h2>
+            <div class="opt-grid">
+                <div class="opt b4" onclick="sel('b4',this,'Sim','papo')">Sim</div>
+                <div class="opt b4" onclick="sel('b4',this,'Não','papo')">Não</div>
+            </div>
+
+            <div class="btns"><button class="back" onclick="back(7, 'B')">Voltar</button><button class="next" id="btn-b" onclick="send()">Finalizar</button></div>
         </div>
 
         <div class="card" id="sFinal" style="text-align:center; padding: 60px 40px; align-items: center;">
-            <h2 style="font-size: 32px; margin-bottom: 10px;">SUCESSO!</h2>
-            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Sua inscrição foi confirmada. Verifique seu e-mail!</p>
+            <h2 style="font-size: 30px; margin-bottom: 10px;">DIRECIONAMENTO SALVO!</h2>
+            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Obrigado por responder. Em breve nossa equipe entrará em contato.</p>
             <button class="next" onclick="location.reload()" style="max-width: 300px; width: 100%;">SAIR</button>
         </div>
     </div>
 
     <script>
-        let form = { conexoes: [] };
-        const API = 'https://sheetdb.io/api/v1/o91i7z567ubte';
+        let form = { 
+            perfil: "", status: "", fase: "", desafio: "", boot: "", turno: "",
+            radar: [], apoio: [], mult: "", 
+            potencial: "", gargalo: [], envolv: "", papo: "" 
+        };
+        const API = 'https://sheetdb.io/api/v1/o91i7z567ubte'; // Confirme se sua API key mudou
+        const TOTAL_STEPS = 7;
 
-        // Máscara de Telefone
         document.getElementById('whatsapp').addEventListener('input', e => {
             let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
             e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         });
 
-        // Avançar com o "Enter"
         function checkEnter(e, s) { if(e.key === "Enter") next(s); }
 
         function sel(g, b, v, f) {
             document.querySelectorAll('.'+g).forEach(i => i.classList.remove('selected'));
-            b.classList.add('selected'); 
-            form[f] = v;
-            if(f === 'perfil') document.getElementById('p_outro').style.display = (v === 'Outro' ? 'block' : 'none');
+            b.classList.add('selected'); form[f] = v;
         }
         
-        function multi(b, v) {
+        function multi(b, g, f, limit) {
             if (b.classList.contains('selected')) {
                 b.classList.remove('selected'); 
-                form.conexoes = form.conexoes.filter(i => i !== v);
-            } else if (form.conexoes.length < 2) {
+                form[f] = form[f].filter(i => i !== b.innerText);
+            } else if (form[f].length < limit) {
                 b.classList.add('selected'); 
-                form.conexoes.push(v);
+                form[f].push(b.innerText);
             }
-            document.getElementById('c_outro').style.display = (form.conexoes.includes('Outro')) ? 'block' : 'none';
+        }
+
+        function updateBar(step) {
+            document.getElementById('bar').style.width = (step / TOTAL_STEPS) * 100 + '%';
         }
 
         function next(s) {
             document.getElementById('s'+s).style.display = 'none';
             document.getElementById('s'+s).classList.remove('active');
-            
             const nxt = document.getElementById('s'+(s+1));
-            nxt.style.display = 'flex'; 
-            nxt.classList.add('active');
-            
-            document.getElementById('bar').style.width = ((s+1)/7)*100 + '%';
+            nxt.style.display = 'flex'; nxt.classList.add('active');
+            updateBar(s+1);
         }
 
-        function back(s) {
-            document.getElementById('s'+s).style.display = 'none';
-            document.getElementById('s'+s).classList.remove('active');
+        function back(s, branch = null) {
+            document.getElementById('s' + (branch ? '7'+branch : s)).style.display = 'none';
+            document.getElementById('s' + (branch ? '7'+branch : s)).classList.remove('active');
             
-            const prev = document.getElementById('s'+(s-1));
-            prev.style.display = 'flex';
-            prev.classList.add('active');
-            
-            document.getElementById('bar').style.width = ((s-1)/7)*100 + '%';
+            const prev = document.getElementById('s'+(branch ? 6 : s-1));
+            prev.style.display = 'flex'; prev.classList.add('active');
+            updateBar(branch ? 6 : s-1);
         }
 
-        async function send() {
-            const btn = document.getElementById('f-btn'); 
-            btn.disabled = true; 
-            btn.innerText = "SALVANDO...";
+        // INTELIGÊNCIA DE RAMIFICAÇÃO (ROTEAMENTO)
+        function route() {
+            document.getElementById('s6').style.display = 'none';
+            document.getElementById('s6').classList.remove('active');
+            updateBar(7);
 
-            let conexaoFinal = form.conexoes.join(", ");
-            if (form.conexoes.includes('Outro')) {
-                const outroValor = document.getElementById('c_outro').value;
-                conexaoFinal = conexaoFinal.replace('Outro', 'Outro: ' + outroValor);
+            if(form.perfil === "Empresa Júnior" || form.perfil === "Núcleo") {
+                document.getElementById('s7A').style.display = 'flex';
+                document.getElementById('s7A').classList.add('active');
+            } else if (form.perfil === "Docente" || form.perfil === "Pesquisa") {
+                document.getElementById('s7B').style.display = 'flex';
+                document.getElementById('s7B').classList.add('active');
+            } else {
+                // Se for "Outro", envia direto
+                send(true); 
+            }
+        }
+
+        async function send(isDirect = false) {
+            if(!isDirect) {
+                document.getElementById('btn-a').innerText = "Enviando...";
+                document.getElementById('btn-b').innerText = "Enviando...";
             }
 
             const data = {
                 "Nome": document.getElementById('nome').value,
                 "WhatsApp": document.getElementById('whatsapp').value,
                 "Email": document.getElementById('email').value,
-                "Perfil": form.perfil === 'Outro' ? document.getElementById('p_outro').value : form.perfil,
-                "Experiencia": form.xp,
-                "Estagio": form.estagio,
-                "Bloqueio": document.getElementById('bloqueio').value,
-                "Conexoes": conexaoFinal,
-                "Produto": document.getElementById('prod').value,
-                "Bootcamp": document.getElementById('boot').value
+                "Perfil": form.perfil,
+                "Status_Projeto": form.status,
+                "Fase": form.fase,
+                "Desafio_30d": form.desafio,
+                "Bootcamp": form.boot,
+                "Turno": form.turno,
+                // Respostas da Ramificação A
+                "Radar_Acoes": form.radar.join(", "),
+                "Apoio_Parque": form.apoio.join(", "),
+                "Multiplicador": form.mult,
+                "Link_Rede": document.getElementById('link').value,
+                // Respostas da Ramificação B
+                "Potencial_Produto": form.potencial,
+                "Gargalo": form.gargalo.join(", "),
+                "Envolvimento": form.envolv,
+                "Papo_Triagem": form.papo
             };
 
             try {
-                // 1. Envia os dados para a Planilha (SheetDB)
                 await fetch(API, { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
                     body: JSON.stringify({data: [data]}) 
                 });
                 
-                // 2. Dispara o E-mail de Confirmação (EmailJS)
+                // Envia e-mail
                 if (data.Email) {
                     await emailjs.send("service_clqnr6o", "template_13fmvbj", {
-                        nome: data.Nome, 
-                        email: data.Email
+                        nome: data.Nome, email: data.Email
                     });
                 }
                 
-                // 3. Transição suave para a tela de sucesso
-                document.getElementById('s7').style.display = 'none'; 
-                document.getElementById('s7').classList.remove('active');
+                // Esconde as ramificações e mostra sucesso
+                document.getElementById('s6').style.display = 'none';
+                document.getElementById('s7A').style.display = 'none'; 
+                document.getElementById('s7B').style.display = 'none';
                 
                 document.getElementById('sFinal').style.display = 'flex';
                 document.getElementById('sFinal').classList.add('active');
+                updateBar(7);
                 
-                document.getElementById('bar').style.width = '100%';
             } catch(e) { 
-                alert("Erro ao enviar. Verifique sua conexão."); 
-                btn.disabled = false; 
-                btn.innerText = "FINALIZAR"; 
+                alert("Erro ao enviar. Verifique sua internet."); 
+                document.getElementById('btn-a').innerText = "Finalizar";
+                document.getElementById('btn-b').innerText = "Finalizar";
             }
         }
     </script>
