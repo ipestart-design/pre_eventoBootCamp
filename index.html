@@ -111,7 +111,7 @@
             <h2>01. Identificação</h2>
             <input type="text" id="nome" placeholder="Nome completo" onkeyup="checkEnter(event, 1)">
             <input type="tel" id="whatsapp" placeholder="WhatsApp" maxlength="15" onkeyup="checkEnter(event, 1)">
-            <input type="email" id="email" placeholder="E-mail (se aplicável)" onkeyup="checkEnter(event, 1)">
+            <input type="email" id="email" placeholder="E-mail (obrigatório)" onkeyup="checkEnter(event, 1)">
             <button class="next" onclick="next(1)" style="margin-top: 10px;">Continuar</button>
         </div>
 
@@ -197,7 +197,7 @@
 
         <div class="card" id="sFinal" style="text-align:center; padding: 60px 40px; align-items: center;">
             <h2 style="font-size: 32px; margin-bottom: 10px;">SUCESSO!</h2>
-            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Sua inscrição foi confirmada. Nos vemos no evento!</p>
+            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Sua inscrição foi confirmada. Verifique seu e-mail!</p>
             <button class="next" onclick="location.reload()" style="max-width: 300px; width: 100%;">SAIR</button>
         </div>
     </div>
@@ -280,13 +280,22 @@
             };
 
             try {
+                // 1. Envia os dados para a Planilha (SheetDB)
                 await fetch(API, { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
                     body: JSON.stringify({data: [data]}) 
                 });
                 
-                // Transição suave para a tela de sucesso
+                // 2. Dispara o E-mail de Confirmação (EmailJS)
+                if (data.Email) {
+                    await emailjs.send("service_clqnr6o", "template_13fmvbj", {
+                        nome: data.Nome, 
+                        email: data.Email
+                    });
+                }
+                
+                // 3. Transição suave para a tela de sucesso
                 document.getElementById('s7').style.display = 'none'; 
                 document.getElementById('s7').classList.remove('active');
                 
