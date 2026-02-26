@@ -76,7 +76,8 @@
     <div id="form-container">
         <div class="event-header">
             <img src="Frame 26.png" alt="IpêStart">
-            <h1>PRÉ-EVENTO | BOOTCAMP </h1>
+            <h1>MAPA DE DEMANDAS & TRIAGEM</h1>
+            <p>Responda rapidinho para receber um direcionamento de apoio (eventos, conexões, mentoria ou incubação).</p>
         </div>
 
         <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
@@ -228,7 +229,7 @@
             radar: [], apoio: [], mult: "", 
             potencial: "", gargalo: [], envolv: "", papo: "" 
         };
-        const API = 'https://sheetdb.io/api/v1/o91i7z567ubte'; // Confirme se sua API key mudou
+        const API = 'https://sheetdb.io/api/v1/o91i7z567ubte'; 
         const TOTAL_STEPS = 7;
 
         document.getElementById('whatsapp').addEventListener('input', e => {
@@ -257,7 +258,19 @@
             document.getElementById('bar').style.width = (step / TOTAL_STEPS) * 100 + '%';
         }
 
+        // VALIDAÇÃO AO CLICAR EM PRÓXIMO
         function next(s) {
+            // Travas de Validação
+            if (s === 1) {
+                if (!document.getElementById('nome').value || !document.getElementById('whatsapp').value || !document.getElementById('email').value) {
+                    return alert("Por favor, preencha todos os campos.");
+                }
+            }
+            if (s === 2 && !form.perfil) return alert("Por favor, selecione o seu perfil.");
+            if (s === 3 && !form.status) return alert("Por favor, selecione uma opção.");
+            if (s === 4 && !form.fase) return alert("Por favor, selecione uma fase.");
+            if (s === 5 && !form.desafio) return alert("Por favor, selecione um bloqueio.");
+
             document.getElementById('s'+s).style.display = 'none';
             document.getElementById('s'+s).classList.remove('active');
             const nxt = document.getElementById('s'+(s+1));
@@ -274,8 +287,10 @@
             updateBar(branch ? 6 : s-1);
         }
 
-        // INTELIGÊNCIA DE RAMIFICAÇÃO (ROTEAMENTO)
+        // VALIDAÇÃO ANTES DE ROTEAR
         function route() {
+            if (!form.boot || !form.turno) return alert("Por favor, responda as duas perguntas antes de continuar.");
+
             document.getElementById('s6').style.display = 'none';
             document.getElementById('s6').classList.remove('active');
             updateBar(7);
@@ -287,13 +302,23 @@
                 document.getElementById('s7B').style.display = 'flex';
                 document.getElementById('s7B').classList.add('active');
             } else {
-                // Se for "Outro", envia direto
                 send(true); 
             }
         }
 
+        // VALIDAÇÃO ANTES DE ENVIAR (RAMIFICAÇÕES)
         async function send(isDirect = false) {
-            if(!isDirect) {
+            if (!isDirect) {
+                if (form.perfil === "Empresa Júnior" || form.perfil === "Núcleo") {
+                    if (form.radar.length === 0 || form.apoio.length === 0 || !form.mult) {
+                        return alert("Por favor, responda a todas as opções.");
+                    }
+                } else if (form.perfil === "Docente" || form.perfil === "Pesquisa") {
+                    if (!form.potencial || form.gargalo.length === 0 || !form.envolv || !form.papo) {
+                        return alert("Por favor, responda a todas as opções.");
+                    }
+                }
+                
                 document.getElementById('btn-a').innerText = "Enviando...";
                 document.getElementById('btn-b').innerText = "Enviando...";
             }
@@ -308,12 +333,10 @@
                 "Desafio_30d": form.desafio,
                 "Bootcamp": form.boot,
                 "Turno": form.turno,
-                // Respostas da Ramificação A
                 "Radar_Acoes": form.radar.join(", "),
                 "Apoio_Parque": form.apoio.join(", "),
                 "Multiplicador": form.mult,
-                "Link_Rede": document.getElementById('link').value,
-                // Respostas da Ramificação B
+                "Link_Rede": document.getElementById('link') ? document.getElementById('link').value : "",
                 "Potencial_Produto": form.potencial,
                 "Gargalo": form.gargalo.join(", "),
                 "Envolvimento": form.envolv,
@@ -327,14 +350,12 @@
                     body: JSON.stringify({data: [data]}) 
                 });
                 
-                // Envia e-mail
                 if (data.Email) {
                     await emailjs.send("service_clqnr6o", "template_13fmvbj", {
                         nome: data.Nome, email: data.Email
                     });
                 }
                 
-                // Esconde as ramificações e mostra sucesso
                 document.getElementById('s6').style.display = 'none';
                 document.getElementById('s7A').style.display = 'none'; 
                 document.getElementById('s7B').style.display = 'none';
@@ -345,8 +366,10 @@
                 
             } catch(e) { 
                 alert("Erro ao enviar. Verifique sua internet."); 
-                document.getElementById('btn-a').innerText = "Finalizar";
-                document.getElementById('btn-b').innerText = "Finalizar";
+                if(!isDirect) {
+                    document.getElementById('btn-a').innerText = "Finalizar";
+                    document.getElementById('btn-b').innerText = "Finalizar";
+                }
             }
         }
     </script>
