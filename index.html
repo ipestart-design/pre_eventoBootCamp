@@ -159,7 +159,7 @@
         </div>
 
         <div class="card" id="s7A">
-            <h2 style="font-size: 14px; margin-bottom: 5px;">A1. Radar de 90 dias:</h2>
+            <h2 style="font-size: 14px; margin-bottom: 5px;">Radar de 90 dias:</h2>
             <p class="hint">O que farão? (Pode marcar vários)</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Capacitação</div>
@@ -170,7 +170,7 @@
             </div>
             <input type="text" id="radar_outro" placeholder="Qual outro evento?" style="display: none;">
 
-            <h2 style="font-size: 14px; margin-bottom: 5px; margin-top: 10px;">A2. Como o Parque pode apoiar?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 5px; margin-top: 10px;">Como o Parque pode apoiar?</h2>
             <p class="hint">Marque até 2 opções</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Espaço/Infra</div>
@@ -179,7 +179,7 @@
                 <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Conexões</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 10px;">A3. Topam ser multiplicadores?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 10px;">Topam ser multiplicadores?</h2>
             <div class="opt-grid">
                 <div class="opt a3 full" onclick="sel('a3',this,'Sim, replicar','mult')">Sim, replicar no grupo</div>
                 <div class="opt a3 full" onclick="sel('a3',this,'Sim, pontual','mult')">Sim, pontualmente</div>
@@ -192,14 +192,14 @@
         </div>
 
         <div class="card" id="s7B">
-            <h2 style="font-size: 14px; margin-bottom: 10px;">B1. Potencial para virar Produto/Serviço?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 10px;">Potencial para virar Produto/Serviço?</h2>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt b1" onclick="sel('b1',this,'Sim','potencial')">Sim</div>
                 <div class="opt b1" onclick="sel('b1',this,'Talvez','potencial')">Talvez</div>
                 <div class="opt b1 full" onclick="sel('b1',this,'Não sei','potencial')">Não / Não sei</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 5px;">B2. O que mais te trava hoje?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 5px;">O que mais te trava hoje?</h2>
             <p class="hint">Marque até 2 opções</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Tempo</div>
@@ -208,13 +208,13 @@
                 <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Parcerias</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 10px;">B3. Como prefere se envolver?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 10px;">Como prefere se envolver?</h2>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt b3 full" onclick="sel('b3',this,'Incubar','envolv')">Incubar iniciativa</div>
                 <div class="opt b3 full" onclick="sel('b3',this,'Mentor','envolv')">Ser Mentor(a)</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 10px;">B4. Topa um papo rápido de 15 min?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 10px;">Topa um papo rápido de 15 min?</h2>
             <div class="opt-grid">
                 <div class="opt b4" onclick="sel('b4',this,'Sim','papo')">Sim</div>
                 <div class="opt b4" onclick="sel('b4',this,'Não','papo')">Não</div>
@@ -223,10 +223,10 @@
             <div class="btns"><button class="back" onclick="back(7, 'B')">Voltar</button><button class="next" id="btn-b" onclick="send()">Finalizar</button></div>
         </div>
 
-        <div class="card" id="sFinal" style="text-align:center; padding: 60px 40px; align-items: center;">
+        <div class="card" id="sFinal" style="text-align:center; padding: 60px 40px; align-items: center; flex-direction: column; justify-content: center;">
             <h2 style="font-size: 30px; margin-bottom: 10px;">DIRECIONAMENTO SALVO!</h2>
-            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Obrigado por responder. Em breve nossa equipe entrará em contato.</p>
-            <button class="next" onclick="location.reload()" style="max-width: 300px; width: 100%;">SAIR</button>
+            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Obrigado por responder. Verifique seu e-mail!</p>
+            <button class="next" onclick="location.reload()" style="max-width: 300px; width: 100%; flex: none;">VOLTAR</button>
         </div>
     </div>
 
@@ -275,7 +275,6 @@
             document.getElementById('bar').style.width = (step / TOTAL_STEPS) * 100 + '%';
         }
 
-        // VALIDAÇÃO 
         function next(s) {
             if (s === 1) {
                 const nomeVal = document.getElementById('nome').value.trim();
@@ -351,7 +350,6 @@
                 document.getElementById('btn-b').innerText = "Enviando...";
             }
 
-            // Tratamento final dos campos "Outro" para a planilha
             let perfilFinal = form.perfil === 'Outro' ? document.getElementById('perfil_outro').value : form.perfil;
             
             let radarFinal = form.radar.join(", ");
@@ -381,14 +379,12 @@
             };
 
             try {
-                // 1. Envia para a planilha
                 await fetch(API, { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
                     body: JSON.stringify({data: [data]}) 
                 });
                 
-                // 2. Dispara e-mail e captura erro caso o EmailJS falhe
                 if (data.Email) {
                     try {
                         await emailjs.send("service_clqnr6o", "template_8u9l9kh", {
@@ -400,7 +396,6 @@
                     }
                 }
                 
-                // 3. Mostra tela de sucesso
                 document.getElementById('s6').style.display = 'none';
                 document.getElementById('s7A').style.display = 'none'; 
                 document.getElementById('s7B').style.display = 'none';
