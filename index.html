@@ -75,7 +75,6 @@
 <body>
     <div id="form-container">
         <div class="event-header">
-            <div class="event-header">
             <img src="Frame 26.png" alt="IpêStart">
             <h1>PRÉ-EVENTO | BOOTCAMP</h1>
             <p>O primeiro passo para tirar sua ideia do papel. Mapeie seu momento atual e garanta acesso ao nosso ecossistema.</p>
@@ -100,6 +99,8 @@
                 <div class="opt p" onclick="sel('p',this,'Pesquisa','perfil')">Projeto de Pesquisa</div>
                 <div class="opt p full" onclick="sel('p',this,'Outro','perfil')">Outro</div>
             </div>
+            <input type="text" id="perfil_outro" placeholder="Digite seu perfil..." style="display: none;">
+            
             <div class="btns"><button class="back" onclick="back(2)">Voltar</button><button class="next" onclick="next(2)">Próximo</button></div>
         </div>
 
@@ -165,9 +166,11 @@
                 <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Hackathon</div>
                 <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Evento Técnico</div>
                 <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Proj. Empresa</div>
+                <div class="opt a1 full" onclick="multi(this,'a1','radar', 5)">Outro</div>
             </div>
+            <input type="text" id="radar_outro" placeholder="Qual outro evento?" style="display: none;">
 
-            <h2 style="font-size: 14px; margin-bottom: 5px;">A2. Como o Parque pode apoiar?</h2>
+            <h2 style="font-size: 14px; margin-bottom: 5px; margin-top: 10px;">A2. Como o Parque pode apoiar?</h2>
             <p class="hint">Marque até 2 opções</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Espaço/Infra</div>
@@ -246,6 +249,11 @@
         function sel(g, b, v, f) {
             document.querySelectorAll('.'+g).forEach(i => i.classList.remove('selected'));
             b.classList.add('selected'); form[f] = v;
+            
+            // Lógica para mostrar/esconder o campo "Outro" no Passo 2
+            if(f === 'perfil') {
+                document.getElementById('perfil_outro').style.display = (v === 'Outro') ? 'block' : 'none';
+            }
         }
         
         function multi(b, g, f, limit) {
@@ -256,25 +264,36 @@
                 b.classList.add('selected'); 
                 form[f].push(b.innerText);
             }
+            
+            // Lógica para mostrar/esconder o campo "Outro" no Radar (Passo 7A)
+            if(f === 'radar') {
+                document.getElementById('radar_outro').style.display = form.radar.includes('Outro') ? 'block' : 'none';
+            }
         }
 
         function updateBar(step) {
             document.getElementById('bar').style.width = (step / TOTAL_STEPS) * 100 + '%';
         }
 
+        // VALIDAÇÃO 
         function next(s) {
             if (s === 1) {
                 const nomeVal = document.getElementById('nome').value.trim();
                 const zapVal = document.getElementById('whatsapp').value.trim();
                 const emailVal = document.getElementById('email').value.trim();
-                if (!nomeVal || !zapVal || !emailVal) {
-                    return alert("Por favor, preencha todos os campos de contato antes de continuar.");
+                if (!nomeVal || !zapVal || !emailVal) return alert("Por favor, preencha todos os campos de contato.");
+            }
+            
+            if (s === 2) {
+                if(!form.perfil) return alert("Por favor, selecione um Perfil.");
+                if(form.perfil === "Outro" && document.getElementById('perfil_outro').value.trim() === "") {
+                    return alert("Por favor, digite qual é o seu perfil.");
                 }
             }
-            if (s === 2 && !form.perfil) return alert("Por favor, selecione uma opção de Perfil.");
-            if (s === 3 && !form.status) return alert("Por favor, selecione o status do seu projeto.");
-            if (s === 4 && !form.fase) return alert("Por favor, selecione em qual fase você está.");
-            if (s === 5 && !form.desafio) return alert("Por favor, selecione qual o seu bloqueio atual.");
+            
+            if (s === 3 && !form.status) return alert("Por favor, selecione o status.");
+            if (s === 4 && !form.fase) return alert("Por favor, selecione a fase.");
+            if (s === 5 && !form.desafio) return alert("Por favor, selecione o bloqueio.");
 
             document.getElementById('s'+s).style.display = 'none';
             document.getElementById('s'+s).classList.remove('active');
@@ -292,12 +311,10 @@
             updateBar(branch ? 6 : s-1);
         }
 
-        // Validação da nova pergunta de turno/horário e Roteamento
         function route() {
             const horarioInput = document.getElementById('horario_sugerido').value.trim();
-            
             if (!form.boot || !form.turno || !horarioInput) {
-                return alert("Por favor, selecione o interesse, o turno e sugira um horário antes de continuar.");
+                return alert("Por favor, responda interesse, turno e sugira um horário.");
             }
 
             document.getElementById('s6').style.display = 'none';
@@ -319,31 +336,41 @@
             if (!isDirect) {
                 if (form.perfil === "Empresa Júnior" || form.perfil === "Núcleo") {
                     if (form.radar.length === 0 || form.apoio.length === 0 || !form.mult) {
-                        return alert("Por favor, preencha todas as perguntas desta tela para finalizar.");
+                        return alert("Por favor, responda a todas as opções desta tela.");
+                    }
+                    if(form.radar.includes("Outro") && document.getElementById('radar_outro').value.trim() === "") {
+                        return alert("Por favor, digite qual outro evento está no radar.");
                     }
                 } 
                 else if (form.perfil === "Docente" || form.perfil === "Pesquisa") {
                     if (!form.potencial || form.gargalo.length === 0 || !form.envolv || !form.papo) {
-                        return alert("Por favor, preencha todas as perguntas desta tela para finalizar.");
+                        return alert("Por favor, responda a todas as opções desta tela.");
                     }
                 }
-                
                 document.getElementById('btn-a').innerText = "Enviando...";
                 document.getElementById('btn-b').innerText = "Enviando...";
+            }
+
+            // Tratamento final dos campos "Outro" para a planilha
+            let perfilFinal = form.perfil === 'Outro' ? document.getElementById('perfil_outro').value : form.perfil;
+            
+            let radarFinal = form.radar.join(", ");
+            if (form.radar.includes('Outro')) {
+                radarFinal = radarFinal.replace('Outro', 'Outro: ' + document.getElementById('radar_outro').value);
             }
 
             const data = {
                 "Nome": document.getElementById('nome').value,
                 "WhatsApp": document.getElementById('whatsapp').value,
                 "Email": document.getElementById('email').value,
-                "Perfil": form.perfil,
+                "Perfil": perfilFinal,
                 "Status_Projeto": form.status,
                 "Fase": form.fase,
                 "Desafio_30d": form.desafio,
                 "Bootcamp": form.boot,
                 "Turno": form.turno,
                 "Horario_Sugerido": document.getElementById('horario_sugerido').value,
-                "Radar_Acoes": form.radar.join(", "),
+                "Radar_Acoes": radarFinal,
                 "Apoio_Parque": form.apoio.join(", "),
                 "Multiplicador": form.mult,
                 "Link_Rede": document.getElementById('link') ? document.getElementById('link').value : "",
@@ -354,18 +381,26 @@
             };
 
             try {
+                // 1. Envia para a planilha
                 await fetch(API, { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
                     body: JSON.stringify({data: [data]}) 
                 });
                 
+                // 2. Dispara e-mail e captura erro caso o EmailJS falhe
                 if (data.Email) {
-                    await emailjs.send("service_clqnr6o", "template_8u9l9kh", {
-                        nome: data.Nome, email: data.Email
-                    });
+                    try {
+                        await emailjs.send("service_clqnr6o", "template_8u9l9kh", {
+                            nome: data.Nome, email: data.Email
+                        });
+                    } catch (emailError) {
+                        console.error("Erro no EmailJS:", emailError);
+                        alert("Os dados foram salvos, mas houve um erro ao enviar o e-mail de confirmação. (Verifique o Template no EmailJS)");
+                    }
                 }
                 
+                // 3. Mostra tela de sucesso
                 document.getElementById('s6').style.display = 'none';
                 document.getElementById('s7A').style.display = 'none'; 
                 document.getElementById('s7B').style.display = 'none';
@@ -375,7 +410,7 @@
                 updateBar(7);
                 
             } catch(e) { 
-                alert("Erro ao enviar. Verifique sua internet."); 
+                alert("Erro ao salvar na planilha. Verifique sua internet."); 
                 if(!isDirect) {
                     document.getElementById('btn-a').innerText = "Finalizar";
                     document.getElementById('btn-b').innerText = "Finalizar";
