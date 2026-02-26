@@ -45,7 +45,9 @@
         .card.active { display: flex; flex-direction: column; animation: slideUp 0.4s ease; }
 
         h2 { font-size: 16px; margin: 0 0 20px 0; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; line-height: 1.4; font-weight: 800; }
-        .hint { font-size: 12px; opacity: 0.6; margin-top: -15px; margin-bottom: 20px; }
+        
+        /* CORREÇÃO DO TEXTO SOBREPOSTO AQUI */
+        .hint { font-size: 12px; opacity: 0.6; margin-top: 0px; margin-bottom: 20px; }
         
         input[type="text"], input[type="tel"], input[type="email"] { 
             width: 100%; background: transparent; border: none; border-bottom: 2px solid #333; 
@@ -225,8 +227,8 @@
 
         <div class="card" id="sFinal" style="text-align:center; padding: 60px 40px; align-items: center; flex-direction: column; justify-content: center;">
             <h2 style="font-size: 30px; margin-bottom: 10px;">DIRECIONAMENTO SALVO!</h2>
-            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Obrigado por responder. Verifique seu e-mail!</p>
-            <button class="next" onclick="location.reload()" style="max-width: 300px; width: 100%; flex: none;">VOLTAR</button>
+            <p style="font-size: 16px; margin-bottom: 40px; opacity: 0.9;">Obrigado por responder. Em breve nossa equipe entrará em contato.</p>
+            <button class="next" onclick="location.reload()" style="max-width: 300px; width: 100%; flex: none;">SAIR</button>
         </div>
     </div>
 
@@ -250,7 +252,6 @@
             document.querySelectorAll('.'+g).forEach(i => i.classList.remove('selected'));
             b.classList.add('selected'); form[f] = v;
             
-            // Lógica para mostrar/esconder o campo "Outro" no Passo 2
             if(f === 'perfil') {
                 document.getElementById('perfil_outro').style.display = (v === 'Outro') ? 'block' : 'none';
             }
@@ -265,7 +266,6 @@
                 form[f].push(b.innerText);
             }
             
-            // Lógica para mostrar/esconder o campo "Outro" no Radar (Passo 7A)
             if(f === 'radar') {
                 document.getElementById('radar_outro').style.display = form.radar.includes('Outro') ? 'block' : 'none';
             }
