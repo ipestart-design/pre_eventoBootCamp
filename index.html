@@ -144,12 +144,15 @@
                 <div class="opt i full" onclick="sel('i',this,'Não','boot')">Não</div>
             </div>
             
-            <h2 style="margin-top: 10px;">Melhor horário?</h2>
-            <div class="opt-grid">
+            <h2 style="margin-top: 10px;">Melhor turno para você?</h2>
+            <div class="opt-grid" style="margin-bottom: 10px;">
                 <div class="opt t" onclick="sel('t',this,'Manhã','turno')">Manhã</div>
                 <div class="opt t" onclick="sel('t',this,'Tarde','turno')">Tarde</div>
                 <div class="opt t full" onclick="sel('t',this,'Noite','turno')">Noite</div>
             </div>
+            
+            <input type="text" id="horario_sugerido" placeholder="Sugira um horário (Ex: 14h às 16h)" style="margin-bottom: 20px;" onkeyup="if(event.key === 'Enter') route()">
+            
             <div class="btns"><button class="back" onclick="back(6)">Voltar</button><button class="next" onclick="route()">Continuar</button></div>
         </div>
 
@@ -258,18 +261,19 @@
             document.getElementById('bar').style.width = (step / TOTAL_STEPS) * 100 + '%';
         }
 
-        // VALIDAÇÃO AO CLICAR EM PRÓXIMO
         function next(s) {
-            // Travas de Validação
             if (s === 1) {
-                if (!document.getElementById('nome').value || !document.getElementById('whatsapp').value || !document.getElementById('email').value) {
-                    return alert("Por favor, preencha todos os campos.");
+                const nomeVal = document.getElementById('nome').value.trim();
+                const zapVal = document.getElementById('whatsapp').value.trim();
+                const emailVal = document.getElementById('email').value.trim();
+                if (!nomeVal || !zapVal || !emailVal) {
+                    return alert("Por favor, preencha todos os campos de contato antes de continuar.");
                 }
             }
-            if (s === 2 && !form.perfil) return alert("Por favor, selecione o seu perfil.");
-            if (s === 3 && !form.status) return alert("Por favor, selecione uma opção.");
-            if (s === 4 && !form.fase) return alert("Por favor, selecione uma fase.");
-            if (s === 5 && !form.desafio) return alert("Por favor, selecione um bloqueio.");
+            if (s === 2 && !form.perfil) return alert("Por favor, selecione uma opção de Perfil.");
+            if (s === 3 && !form.status) return alert("Por favor, selecione o status do seu projeto.");
+            if (s === 4 && !form.fase) return alert("Por favor, selecione em qual fase você está.");
+            if (s === 5 && !form.desafio) return alert("Por favor, selecione qual o seu bloqueio atual.");
 
             document.getElementById('s'+s).style.display = 'none';
             document.getElementById('s'+s).classList.remove('active');
@@ -287,9 +291,13 @@
             updateBar(branch ? 6 : s-1);
         }
 
-        // VALIDAÇÃO ANTES DE ROTEAR
+        // Validação da nova pergunta de turno/horário e Roteamento
         function route() {
-            if (!form.boot || !form.turno) return alert("Por favor, responda as duas perguntas antes de continuar.");
+            const horarioInput = document.getElementById('horario_sugerido').value.trim();
+            
+            if (!form.boot || !form.turno || !horarioInput) {
+                return alert("Por favor, selecione o interesse, o turno e sugira um horário antes de continuar.");
+            }
 
             document.getElementById('s6').style.display = 'none';
             document.getElementById('s6').classList.remove('active');
@@ -306,16 +314,16 @@
             }
         }
 
-        // VALIDAÇÃO ANTES DE ENVIAR (RAMIFICAÇÕES)
         async function send(isDirect = false) {
             if (!isDirect) {
                 if (form.perfil === "Empresa Júnior" || form.perfil === "Núcleo") {
                     if (form.radar.length === 0 || form.apoio.length === 0 || !form.mult) {
-                        return alert("Por favor, responda a todas as opções.");
+                        return alert("Por favor, preencha todas as perguntas desta tela para finalizar.");
                     }
-                } else if (form.perfil === "Docente" || form.perfil === "Pesquisa") {
+                } 
+                else if (form.perfil === "Docente" || form.perfil === "Pesquisa") {
                     if (!form.potencial || form.gargalo.length === 0 || !form.envolv || !form.papo) {
-                        return alert("Por favor, responda a todas as opções.");
+                        return alert("Por favor, preencha todas as perguntas desta tela para finalizar.");
                     }
                 }
                 
@@ -333,6 +341,7 @@
                 "Desafio_30d": form.desafio,
                 "Bootcamp": form.boot,
                 "Turno": form.turno,
+                "Horario_Sugerido": document.getElementById('horario_sugerido').value,
                 "Radar_Acoes": form.radar.join(", "),
                 "Apoio_Parque": form.apoio.join(", "),
                 "Multiplicador": form.mult,
@@ -351,7 +360,7 @@
                 });
                 
                 if (data.Email) {
-                    await emailjs.send("service_clqnr6o", "template_13fmvbj", {
+                    await emailjs.send("service_clqnr6o", "template_8u9l9kh", {
                         nome: data.Nome, email: data.Email
                     });
                 }
