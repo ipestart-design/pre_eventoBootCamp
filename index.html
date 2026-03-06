@@ -46,7 +46,6 @@
 
         h2 { font-size: 16px; margin: 0 0 20px 0; color: var(--amarelo); text-transform: uppercase; letter-spacing: 1px; line-height: 1.4; font-weight: 800; }
         
-        /* CORREÇÃO DO TEXTO SOBREPOSTO AQUI */
         .hint { font-size: 12px; opacity: 0.6; margin-top: 0px; margin-bottom: 20px; }
         
         input[type="text"], input[type="tel"], input[type="email"] { 
@@ -161,8 +160,8 @@
         </div>
 
         <div class="card" id="s7A">
-            <h2 style="font-size: 14px; margin-bottom: 5px;">Radar de 90 dias:</h2>
-            <p class="hint">O que farão? (Pode marcar vários)</p>
+            <h2 style="font-size: 15px; margin-bottom: 5px;">Quais ações estão no radar de vocês para os próximos 90 dias?</h2>
+            <p class="hint">Pode marcar mais de uma opção.</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Capacitação</div>
                 <div class="opt a1" onclick="multi(this,'a1','radar', 5)">Hackathon</div>
@@ -172,7 +171,7 @@
             </div>
             <input type="text" id="radar_outro" placeholder="Qual outro evento?" style="display: none;">
 
-            <h2 style="font-size: 14px; margin-bottom: 5px; margin-top: 10px;">Como o Parque pode apoiar?</h2>
+            <h2 style="font-size: 15px; margin-bottom: 5px; margin-top: 10px;">Onde o Parque pode apoiar de forma mais útil?</h2>
             <p class="hint">Marque até 2 opções</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Espaço/Infra</div>
@@ -181,7 +180,7 @@
                 <div class="opt a2" onclick="multi(this,'a2','apoio', 2)">Conexões</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 10px;">Topam ser multiplicadores?</h2>
+            <h2 style="font-size: 15px; margin-bottom: 10px;">Vocês topam atuar como multiplicadores do nosso conteúdo?</h2>
             <div class="opt-grid">
                 <div class="opt a3 full" onclick="sel('a3',this,'Sim, replicar','mult')">Sim, replicar no grupo</div>
                 <div class="opt a3 full" onclick="sel('a3',this,'Sim, pontual','mult')">Sim, pontualmente</div>
@@ -194,14 +193,14 @@
         </div>
 
         <div class="card" id="s7B">
-            <h2 style="font-size: 14px; margin-bottom: 10px;">Potencial para virar Produto/Serviço?</h2>
+            <h2 style="font-size: 15px; margin-bottom: 10px;">Seu projeto tem potencial de virar tecnologia ou produto de mercado?</h2>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt b1" onclick="sel('b1',this,'Sim','potencial')">Sim</div>
                 <div class="opt b1" onclick="sel('b1',this,'Talvez','potencial')">Talvez</div>
                 <div class="opt b1 full" onclick="sel('b1',this,'Não sei','potencial')">Não / Não sei</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 5px;">O que mais te trava hoje?</h2>
+            <h2 style="font-size: 15px; margin-bottom: 5px;">O que mais te trava para avançar com a pesquisa hoje?</h2>
             <p class="hint">Marque até 2 opções</p>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Tempo</div>
@@ -210,16 +209,16 @@
                 <div class="opt b2" onclick="multi(this,'b2','gargalo', 2)">Parcerias</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 10px;">Como prefere se envolver?</h2>
+            <h2 style="font-size: 15px; margin-bottom: 10px;">Como você prefere se envolver com nosso ecossistema?</h2>
             <div class="opt-grid" style="margin-bottom: 15px;">
                 <div class="opt b3 full" onclick="sel('b3',this,'Incubar','envolv')">Incubar iniciativa</div>
                 <div class="opt b3 full" onclick="sel('b3',this,'Mentor','envolv')">Ser Mentor(a)</div>
             </div>
 
-            <h2 style="font-size: 14px; margin-bottom: 10px;">Topa um papo rápido de 15 min?</h2>
+            <h2 style="font-size: 15px; margin-bottom: 10px;">Topa um papo rápido de 15 min com nossa equipe?</h2>
             <div class="opt-grid">
-                <div class="opt b4" onclick="sel('b4',this,'Sim','papo')">Sim</div>
-                <div class="opt b4" onclick="sel('b4',this,'Não','papo')">Não</div>
+                <div class="opt b4" onclick="sel('b4',this,'Sim','papo')">Sim, com certeza</div>
+                <div class="opt b4" onclick="sel('b4',this,'Não','papo')">Não no momento</div>
             </div>
 
             <div class="btns"><button class="back" onclick="back(7, 'B')">Voltar</button><button class="next" id="btn-b" onclick="send()">Finalizar</button></div>
@@ -357,25 +356,26 @@
                 radarFinal = radarFinal.replace('Outro', 'Outro: ' + document.getElementById('radar_outro').value);
             }
 
+            // AQUI ESTÃO OS NOMES DAS COLUNAS ATUALIZADOS
             const data = {
-                "Nome": document.getElementById('nome').value,
+                "Nome_Completo": document.getElementById('nome').value,
                 "WhatsApp": document.getElementById('whatsapp').value,
                 "Email": document.getElementById('email').value,
-                "Perfil": perfilFinal,
-                "Status_Projeto": form.status,
-                "Fase": form.fase,
-                "Desafio_30d": form.desafio,
-                "Bootcamp": form.boot,
-                "Turno": form.turno,
+                "Perfil_Selecionado": perfilFinal,
+                "Iniciativa_em_Andamento": form.status,
+                "Fase_Mais_Proxima": form.fase,
+                "Bloqueio_a_Destravar": form.desafio,
+                "Interesse_Bootcamp": form.boot,
+                "Turno_Preferencial": form.turno,
                 "Horario_Sugerido": document.getElementById('horario_sugerido').value,
-                "Radar_Acoes": radarFinal,
-                "Apoio_Parque": form.apoio.join(", "),
-                "Multiplicador": form.mult,
-                "Link_Rede": document.getElementById('link') ? document.getElementById('link').value : "",
-                "Potencial_Produto": form.potencial,
-                "Gargalo": form.gargalo.join(", "),
-                "Envolvimento": form.envolv,
-                "Papo_Triagem": form.papo
+                "EJ_Acoes_90_Dias": radarFinal,
+                "EJ_Apoio_do_Parque": form.apoio.join(", "),
+                "EJ_Multiplicadores": form.mult,
+                "EJ_Link_Rede_Drive": document.getElementById('link') ? document.getElementById('link').value : "",
+                "DOC_Potencial_Produto": form.potencial,
+                "DOC_Gargalo_Atual": form.gargalo.join(", "),
+                "DOC_Envolvimento": form.envolv,
+                "DOC_Papo_Triagem": form.papo
             };
 
             try {
@@ -388,7 +388,7 @@
                 if (data.Email) {
                     try {
                         await emailjs.send("service_clqnr6o", "template_8u9l9kh", {
-                            nome: data.Nome, email: data.Email
+                            nome: data.Nome_Completo, email: data.Email
                         });
                     } catch (emailError) {
                         console.error("Erro no EmailJS:", emailError);
